@@ -1,12 +1,11 @@
 import styled from 'styled-components/native';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 export const Container = styled.View`
   flex: 1;
-  align-items: center;
-  justify-content: center;
   background-color: ${({ theme }) => theme.colors.PRIMARY_BACKGROUND_BLUE};
 `;
 
-export const WelcomeTitle = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.BOLD};
+export const CommunicationContent = styled.View`
+  margin-top: ${getStatusBarHeight() + 159}px;
 `;
