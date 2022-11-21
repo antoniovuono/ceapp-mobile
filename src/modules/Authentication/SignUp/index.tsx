@@ -28,7 +28,7 @@ const SignUp: React.FC = () => {
           onChangeText={setName}
           value={name}
           keyboardType="default"
-          autoCapitalize="characters"
+          autoCapitalize="words"
         />
         <Input
           placeholder="E-mail"
@@ -36,6 +36,7 @@ const SignUp: React.FC = () => {
           onChangeText={setEmail}
           value={email}
           keyboardType="email-address"
+          autoCapitalize="none"
         />
       </FormContent>
     </Container>
