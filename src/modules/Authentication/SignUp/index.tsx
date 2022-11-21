@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Divider from '../../../components/Divider';
 import Input from '../../../components/Input';
+import PasswordInput from '../../../components/PasswordInput';
 import SlogamBox from '../components/SlogamBox';
 
 import { Container, CommunicationContent, FormContent } from './styles';
@@ -8,6 +9,8 @@ import { Container, CommunicationContent, FormContent } from './styles';
 const SignUp: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [card, setCard] = useState('');
 
   return (
     <Container>
@@ -36,6 +39,30 @@ const SignUp: React.FC = () => {
           onChangeText={setEmail}
           value={email}
           keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <PasswordInput
+          iconName="lock"
+          placeholder="Senha"
+          autoCapitalize="none"
+          onChangeText={setPassword}
+          value={password}
+          keyboardType="default"
+        />
+        <PasswordInput
+          iconName="lock"
+          placeholder="Senha"
+          autoCapitalize="none"
+          onChangeText={setPassword}
+          value={password}
+          keyboardType="default"
+        />
+        <Input
+          placeholder="CPF/CNPJ"
+          iconName="credit-card"
+          onChangeText={setCard}
+          value={card}
+          keyboardType="number-pad"
           autoCapitalize="none"
         />
       </FormContent>
