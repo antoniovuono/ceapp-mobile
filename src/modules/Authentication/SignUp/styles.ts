@@ -9,3 +9,7 @@ export const Container = styled.View`
 export const CommunicationContent = styled.View`
   margin-top: ${getStatusBarHeight() + 159}px;
 `;
+
+export const FormContent = styled.View`
+  padding: 0 31px;
+`;
