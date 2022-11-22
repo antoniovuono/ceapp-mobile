@@ -1,5 +1,4 @@
 import React from 'react';
-import SignUp from './src/modules/Authentication/SignUp';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator } from 'react-native';
 
@@ -13,6 +12,7 @@ import {
   FiraSans_600SemiBold,
   FiraSans_700Bold,
 } from '@expo-google-fonts/fira-sans';
+import SignIn from './src/modules/Authentication/SignIn';
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -30,7 +30,7 @@ const App: React.FC = () => {
     <>
       <ThemeProvider theme={theme}>
         <StatusBar style="dark" translucent backgroundColor="transparent" />
-        <SignUp />
+        <SignIn />
       </ThemeProvider>
     </>
   );
