@@ -7,7 +7,7 @@ export const Container = styled.View`
 `;
 
 export const CommunicationContent = styled.View`
-  margin-top: ${getStatusBarHeight() + 159}px;
+  margin-top: ${getStatusBarHeight() + 130}px;
 `;
 
 export const FormContent = styled.ScrollView`

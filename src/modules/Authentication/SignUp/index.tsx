@@ -3,6 +3,7 @@ import Divider from '../../../components/Divider';
 import Input from '../../../components/Input';
 import PasswordInput from '../../../components/PasswordInput';
 import PrimaryButton from '../../../components/PrimaryButton';
+import CadasterText from '../components/CadasterText';
 import SlogamBox from '../components/SlogamBox';
 
 import { Container, CommunicationContent, FormContent } from './styles';
@@ -68,6 +69,9 @@ const SignUp: React.FC = () => {
         />
 
         <PrimaryButton isPrimary title="CADASTRAR" />
+        <CadasterText />
+
+        <PrimaryButton isPrimary={false} title="CADASTRAR" />
       </FormContent>
     </Container>
   );

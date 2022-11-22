@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex-direction: row;
-  margin-top: 9px;
+  margin-bottom: 9px;
 `;
 
 export const IconContent = styled.View`
