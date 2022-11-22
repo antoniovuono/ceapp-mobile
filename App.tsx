@@ -1,6 +1,8 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator } from 'react-native';
+import Routes from './src/routes';
 
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
@@ -12,7 +14,6 @@ import {
   FiraSans_600SemiBold,
   FiraSans_700Bold,
 } from '@expo-google-fonts/fira-sans';
-import SignIn from './src/modules/Authentication/SignIn';
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -30,7 +31,7 @@ const App: React.FC = () => {
     <>
       <ThemeProvider theme={theme}>
         <StatusBar style="dark" translucent backgroundColor="transparent" />
-        <SignIn />
+        <Routes />
       </ThemeProvider>
     </>
   );
