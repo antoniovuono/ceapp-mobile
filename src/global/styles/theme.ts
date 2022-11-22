@@ -13,6 +13,7 @@ export default {
   fonts: {
     REGULAR: 'FiraSans_400Regular',
     MEDIUM: 'FiraSans_500Medium',
+    SEMI_BOLD: 'FiraSans_600SemiBold',
     BOLD: 'FiraSans_700Bold',
   },
 };

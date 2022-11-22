@@ -10,6 +10,6 @@ export const CommunicationContent = styled.View`
   margin-top: ${getStatusBarHeight() + 159}px;
 `;
 
-export const FormContent = styled.View`
+export const FormContent = styled.ScrollView`
   padding: 0 31px;
 `;

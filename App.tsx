@@ -10,6 +10,7 @@ import {
   useFonts,
   FiraSans_400Regular,
   FiraSans_500Medium,
+  FiraSans_600SemiBold,
   FiraSans_700Bold,
 } from '@expo-google-fonts/fira-sans';
 
@@ -17,6 +18,7 @@ const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
     FiraSans_400Regular,
     FiraSans_500Medium,
+    FiraSans_600SemiBold,
     FiraSans_700Bold,
   });
 

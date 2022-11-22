@@ -23,6 +23,13 @@ export const InputText = styled(TextInput)`
   font-family: ${({ theme }) => theme.fonts.REGULAR};
   height: 44px;
   padding: 0 15px;
+`;
+
+export const VisualizePassword = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.colors.SECONDARY_BACKGROUND_WHITE};
+  width: 55px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  justify-content: center;
+  align-items: center;
 `;

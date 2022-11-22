@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Divider from '../../../components/Divider';
 import Input from '../../../components/Input';
 import PasswordInput from '../../../components/PasswordInput';
+import PrimaryButton from '../../../components/PrimaryButton';
 import SlogamBox from '../components/SlogamBox';
 
 import { Container, CommunicationContent, FormContent } from './styles';
@@ -65,6 +66,8 @@ const SignUp: React.FC = () => {
           keyboardType="number-pad"
           autoCapitalize="none"
         />
+
+        <PrimaryButton isPrimary title="CADASTRAR" />
       </FormContent>
     </Container>
   );

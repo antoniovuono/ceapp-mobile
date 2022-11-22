@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextInputProps } from 'react-native';
 
-import { Container, IconContent, InputText } from './styles';
+import { Container, IconContent, InputText, VisualizePassword } from './styles';
 import { Feather } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 
@@ -53,13 +53,21 @@ const PasswordInput: React.FC<IInputProps> = ({
       <InputText
         {...rest}
         placeholder={placeholder}
-        maxLength={30}
+        maxLength={25}
         placeholderTextColor={theme.colors.DARK_GRAY}
         onFocus={handleInputFocused}
         onBlur={handleInputBlur}
         autoCorrect={false}
         secureTextEntry={isPasswordIsVisible}
       />
+
+      <VisualizePassword activeOpacity={1} onPress={handlePasswordIsVisible}>
+        {isPasswordIsVisible ? (
+          <Feather name="eye" size={22} color={theme.colors.DARK_GRAY} />
+        ) : (
+          <Feather name="eye-off" size={22} color={theme.colors.DARK_GRAY} />
+        )}
+      </VisualizePassword>
     </Container>
   );
 };
