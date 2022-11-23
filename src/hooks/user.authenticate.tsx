@@ -5,6 +5,7 @@ import {
   ICredentials,
   IUserAuthRequest,
 } from '../services/interfaces';
+import { signInRequest } from '../services/requisitions/UsersRequests';
 
 interface IAuthContext {
   user: IUserAuthRequest;
@@ -23,10 +24,7 @@ const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
   );
 
   const signIn = async ({ email, password }: ICredentials) => {
-    const response = await api.post('/sessions', {
-      email,
-      password,
-    });
+    const response = await signInRequest({ email, password });
 
     const { token, user } = response.data;
 
