@@ -6,7 +6,7 @@ import DashboardPage from '../modules/Dashboard/DashboardPage';
 import MyProfilePage from '../modules/Profile/MyProfilePage';
 import { Feather } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
-import { Platform, Text } from 'react-native';
+import { Platform } from 'react-native';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 

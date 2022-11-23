@@ -14,6 +14,7 @@ import {
   FiraSans_600SemiBold,
   FiraSans_700Bold,
 } from '@expo-google-fonts/fira-sans';
+import AppProvider from './src/hooks';
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -29,9 +30,11 @@ const App: React.FC = () => {
 
   return (
     <>
+      <StatusBar style="dark" translucent backgroundColor="transparent" />
       <ThemeProvider theme={theme}>
-        <StatusBar style="dark" translucent backgroundColor="transparent" />
-        <Routes />
+        <AppProvider>
+          <Routes />
+        </AppProvider>
       </ThemeProvider>
     </>
   );
