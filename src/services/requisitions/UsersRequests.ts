@@ -1,5 +1,5 @@
 import api from '../api';
-import { ICredentials } from '../interfaces';
+import { ICreateAccount, ICredentials } from '../interfaces';
 
 const signInRequest = async ({ email, password }: ICredentials) => {
   const response = await api.post('/sessions', {
@@ -10,4 +10,20 @@ const signInRequest = async ({ email, password }: ICredentials) => {
   return response;
 };
 
-export { signInRequest };
+const signUpRequest = async ({
+  name,
+  email,
+  password,
+  cpf,
+}: ICreateAccount) => {
+  const response = await api.post('/users', {
+    name,
+    email,
+    password,
+    cpf,
+  });
+
+  return response;
+};
+
+export { signInRequest, signUpRequest };

@@ -1,3 +1,10 @@
+interface ICreateAccount {
+  name: string;
+  email: string;
+  password: string;
+  cpf: string;
+}
+
 interface IUserAuthRequest {
   id: string;
   name: string;
@@ -17,4 +24,9 @@ interface IAunthenticateResponse {
   user: IUserAuthRequest;
 }
 
-export { IUserAuthRequest, ICredentials, IAunthenticateResponse };
+export {
+  IUserAuthRequest,
+  ICredentials,
+  IAunthenticateResponse,
+  ICreateAccount,
+};
