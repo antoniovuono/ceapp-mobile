@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import Divider from '../../../components/Divider';
 import Input from '../../../components/Input';
@@ -13,6 +14,12 @@ const SignUp: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [card, setCard] = useState('');
+
+  const navigation = useNavigation();
+
+  const handleNavigateToSignIn = () => {
+    navigation.goBack();
+  };
 
   return (
     <Container>
@@ -71,7 +78,11 @@ const SignUp: React.FC = () => {
         <PrimaryButton isPrimary title="CADASTRAR" />
         <CadasterText />
 
-        <PrimaryButton isPrimary={false} title="CADASTRAR" />
+        <PrimaryButton
+          isPrimary={false}
+          title="CADASTRAR"
+          onPressed={handleNavigateToSignIn}
+        />
       </FormContent>
     </Container>
   );

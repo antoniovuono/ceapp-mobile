@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import BackgroundImage from '../../.././assets/images/background-signin.png';
 import Divider from '../../../components/Divider';
@@ -17,6 +18,12 @@ import {
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigation = useNavigation();
+
+  const handleNavigateToSignUp = () => {
+    navigation.navigate('SignUp');
+  };
 
   return (
     <Container>
@@ -52,9 +59,13 @@ const SignIn: React.FC = () => {
           value={password}
         />
 
-        <PrimaryButton isPrimary title="Entrar" />
+        <PrimaryButton isPrimary title="Entrar" onPressed={() => {}} />
         <CadasterText />
-        <PrimaryButton isPrimary={false} title="Cadastrar" />
+        <PrimaryButton
+          isPrimary={false}
+          title="Cadastrar"
+          onPressed={handleNavigateToSignUp}
+        />
       </FormContent>
     </Container>
   );
