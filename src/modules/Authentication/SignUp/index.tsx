@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
+import Alerts from '../../../components/Alerts';
 import Divider from '../../../components/Divider';
 import Input from '../../../components/Input';
 import PasswordInput from '../../../components/PasswordInput';
@@ -23,6 +24,7 @@ const SignUp: React.FC = () => {
 
   return (
     <Container>
+      <Alerts />
       <CommunicationContent>
         <SlogamBox
           title="ceapp"
