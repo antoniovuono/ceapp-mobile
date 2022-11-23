@@ -1,0 +1,54 @@
+import React, { createContext, ReactNode, useContext, useState } from 'react';
+import api from '../services/api';
+import {
+  IAunthenticateResponse,
+  ICredentials,
+  IUserAuthRequest,
+} from '../services/interfaces';
+
+interface IAuthContext {
+  user: IUserAuthRequest;
+  signIn: (credentials: ICredentials) => Promise<void>;
+}
+
+interface IAuthProvider {
+  children: ReactNode;
+}
+
+const AuthContext = createContext<IAuthContext>({} as IAuthContext);
+
+const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
+  const [authResponse, setAuthResposne] = useState<IAunthenticateResponse>(
+    {} as IAunthenticateResponse,
+  );
+
+  const signIn = async ({ email, password }: ICredentials) => {
+    const response = await api.post('/sessions', {
+      email,
+      password,
+    });
+
+    const { token, user } = response.data;
+
+    api.defaults.headers.authorization = `Bearer`;
+
+    setAuthResposne({
+      token,
+      user,
+    });
+  };
+
+  return (
+    <AuthContext.Provider value={{ user: authResponse.user, signIn }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  return context;
+};
+
+export { AuthProvider, useAuth };
