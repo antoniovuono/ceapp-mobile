@@ -16,4 +16,5 @@ export const ButtonTitle = styled.Text`
     color: ${theme.colors.SECONDARY_BACKGROUND_WHITE};
     font-family: ${theme.fonts.SEMI_BOLD};
   `}
+  text-transform: uppercase;
 `;

@@ -1,4 +1,4 @@
-import api from '../api';
+import { api } from '../api';
 import { ICreateAccount, ICredentials } from '../interfaces';
 
 const signInRequest = async ({ email, password }: ICredentials) => {
@@ -23,7 +23,7 @@ const signUpRequest = async ({
     cpf,
   });
 
-  return response;
+  return response.data;
 };
 
 export { signInRequest, signUpRequest };

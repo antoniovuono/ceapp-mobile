@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { TextInputProps } from 'react-native';
-
-import { Container, IconContent, InputText } from './styles';
+import { TextInputProps, View } from 'react-native';
+import { Control, Controller } from 'react-hook-form';
+import { Container, IconContent, InputText, Error } from './styles';
 import { Feather } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 
 interface IInputProps extends TextInputProps {
   iconName: React.ComponentProps<typeof Feather>['name'];
-  placeholder: string;
   value?: string;
+  control: Control;
+  error: string | any;
+  name: string;
 }
 
 const Input: React.FC<IInputProps> = ({
   iconName,
   value,
-  placeholder,
+  name,
+  control,
+  error,
   ...rest
 }) => {
   const theme = useTheme();
@@ -32,29 +36,42 @@ const Input: React.FC<IInputProps> = ({
   };
 
   return (
-    <Container>
-      <IconContent>
-        <Feather
-          name={iconName}
-          size={22}
-          color={
-            isFocused || isFilled
-              ? theme.colors.PRIMARY_WARNING_RED
-              : theme.colors.DARK_GRAY
-          }
-        />
-      </IconContent>
+    <>
+      <Container style={!error && { marginBottom: 7 }}>
+        <IconContent>
+          <Feather
+            name={iconName}
+            size={22}
+            color={
+              isFocused || isFilled
+                ? theme.colors.PRIMARY_WARNING_RED
+                : theme.colors.DARK_GRAY
+            }
+          />
+        </IconContent>
 
-      <InputText
-        {...rest}
-        placeholder={placeholder}
-        maxLength={30}
-        placeholderTextColor={theme.colors.DARK_GRAY}
-        onFocus={handleInputFocused}
-        onBlur={handleInputBlur}
-        autoCorrect={false}
-      />
-    </Container>
+        <Controller
+          control={control}
+          name={name}
+          rules={{
+            maxLength: 30,
+          }}
+          render={({ field: { onChange, value } }) => (
+            <InputText
+              placeholderTextColor={theme.colors.DARK_GRAY}
+              onFocus={handleInputFocused}
+              onBlur={handleInputBlur}
+              autoCorrect={false}
+              onChangeText={onChange}
+              value={value}
+              {...rest}
+            />
+          )}
+        />
+      </Container>
+
+      <View>{error && <Error>{error}</Error>}</View>
+    </>
   );
 };
 

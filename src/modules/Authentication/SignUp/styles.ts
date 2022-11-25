@@ -12,4 +12,5 @@ export const CommunicationContent = styled.View`
 
 export const FormContent = styled.ScrollView`
   padding: 0 31px;
+  margin-bottom: 25px;
 `;

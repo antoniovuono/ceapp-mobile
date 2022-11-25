@@ -8,7 +8,7 @@ import PrimaryButton from '../PrimaryButton';
 
 interface IAlerts {
   title: string;
-  type: 'success';
+  type: 'success' | 'error';
   isVisible: boolean;
   closeModalPressed: () => void;
 }
@@ -44,7 +44,7 @@ const Alerts: React.FC<IAlerts> = ({
             color={theme.colors.SECONDARY_WARNING_YELLOW}
           />
         )}
-        <Title>Usuário criado com sucesso!</Title>
+        <Title>{title}</Title>
 
         <ButtonContent>
           <PrimaryButton

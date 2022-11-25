@@ -12,6 +12,7 @@ export const ModalAlert = styled.View`
 export const Title = styled.Text`
   font-size: 16px;
   margin-top: 20px;
+  text-align: center;
   ${({ theme }) =>
     theme &&
     css`

@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
-import { TextInputProps } from 'react-native';
+import { View, TouchableOpacityProps } from 'react-native';
 
-import { Container, IconContent, InputText, VisualizePassword } from './styles';
+import {
+  Container,
+  IconContent,
+  InputText,
+  VisualizePassword,
+  Error,
+} from './styles';
+import { Control, Controller } from 'react-hook-form';
 import { Feather } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 
-interface IInputProps extends TextInputProps {
+interface IInputProps extends TouchableOpacityProps {
   iconName: React.ComponentProps<typeof Feather>['name'];
   placeholder: string;
   value?: string;
+  control: Control;
+  error: string | any;
+  name: string;
 }
 
 const PasswordInput: React.FC<IInputProps> = ({
   iconName,
   value,
   placeholder,
+  name,
+  control,
+  error,
   ...rest
 }) => {
   const theme = useTheme();
@@ -37,38 +50,52 @@ const PasswordInput: React.FC<IInputProps> = ({
   };
 
   return (
-    <Container>
-      <IconContent>
-        <Feather
-          name={iconName}
-          size={22}
-          color={
-            isFocused || isFilled
-              ? theme.colors.PRIMARY_WARNING_RED
-              : theme.colors.DARK_GRAY
-          }
+    <>
+      <Container style={!error && { marginBottom: 7 }}>
+        <IconContent>
+          <Feather
+            name={iconName}
+            size={22}
+            color={
+              isFocused || isFilled
+                ? theme.colors.PRIMARY_WARNING_RED
+                : theme.colors.DARK_GRAY
+            }
+          />
+        </IconContent>
+
+        <Controller
+          control={control}
+          name={name}
+          rules={{
+            maxLength: 25,
+          }}
+          render={({ field: { onChange, value } }) => (
+            <InputText
+              {...rest}
+              placeholder={placeholder}
+              placeholderTextColor={theme.colors.DARK_GRAY}
+              onFocus={handleInputFocused}
+              onBlur={handleInputBlur}
+              autoCorrect={false}
+              secureTextEntry={isPasswordIsVisible}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
         />
-      </IconContent>
 
-      <InputText
-        {...rest}
-        placeholder={placeholder}
-        maxLength={25}
-        placeholderTextColor={theme.colors.DARK_GRAY}
-        onFocus={handleInputFocused}
-        onBlur={handleInputBlur}
-        autoCorrect={false}
-        secureTextEntry={isPasswordIsVisible}
-      />
+        <VisualizePassword activeOpacity={1} onPress={handlePasswordIsVisible}>
+          {isPasswordIsVisible ? (
+            <Feather name="eye" size={22} color={theme.colors.DARK_GRAY} />
+          ) : (
+            <Feather name="eye-off" size={22} color={theme.colors.DARK_GRAY} />
+          )}
+        </VisualizePassword>
+      </Container>
 
-      <VisualizePassword activeOpacity={1} onPress={handlePasswordIsVisible}>
-        {isPasswordIsVisible ? (
-          <Feather name="eye" size={22} color={theme.colors.DARK_GRAY} />
-        ) : (
-          <Feather name="eye-off" size={22} color={theme.colors.DARK_GRAY} />
-        )}
-      </VisualizePassword>
-    </Container>
+      <View>{error && <Error>{error}</Error>}</View>
+    </>
   );
 };
 

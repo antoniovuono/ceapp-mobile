@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex-direction: row;
-  margin-bottom: 9px;
 `;
 
 export const IconContent = styled.View`
@@ -32,4 +31,11 @@ export const VisualizePassword = styled.TouchableOpacity`
   border-bottom-right-radius: 6px;
   justify-content: center;
   align-items: center;
+`;
+
+export const Error = styled.Text`
+  color: ${({ theme }) => theme.colors.PRIMARY_WARNING_RED};
+  font-size: 14px;
+  font-family: ${({ theme }) => theme.fonts.REGULAR};
+  margin: 7px 0;
 `;
