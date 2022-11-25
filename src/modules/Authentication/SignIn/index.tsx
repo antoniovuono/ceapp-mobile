@@ -17,8 +17,8 @@ import {
 } from './styles';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { signInRequest } from '../../../services/requisitions/UsersRequests';
 import Alerts from '../../../components/Alerts';
+import { useAuth } from '../../../hooks/user.authenticate';
 
 interface ISignIn {
   email: string;
@@ -35,6 +35,8 @@ const schema = Yup.object().shape({
 const SignIn: React.FC = () => {
   const [loading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
+  const { signIn } = useAuth();
 
   const {
     control,
@@ -59,7 +61,7 @@ const SignIn: React.FC = () => {
     setIsLoading(true);
     try {
       const { email, password } = form;
-      await signInRequest({ email, password });
+      await signIn({ email, password });
       reset();
     } catch (error) {
       setIsVisible(true);
