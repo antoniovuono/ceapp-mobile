@@ -7,6 +7,7 @@ export const ModalAlert = styled.View`
   justify-content: center;
   align-items: center;
   border-radius: 6px;
+  padding: 0 2px;
 `;
 
 export const Title = styled.Text`

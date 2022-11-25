@@ -17,6 +17,13 @@ import {
 } from './styles';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { signInRequest } from '../../../services/requisitions/UsersRequests';
+import Alerts from '../../../components/Alerts';
+
+interface ISignIn {
+  email: string;
+  password: string;
+}
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -26,6 +33,9 @@ const schema = Yup.object().shape({
 });
 
 const SignIn: React.FC = () => {
+  const [loading, setIsLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
   const {
     control,
     handleSubmit,
@@ -41,8 +51,31 @@ const SignIn: React.FC = () => {
     navigation.navigate('SignUp');
   };
 
+  const handleCloseModal = () => {
+    setIsVisible(false);
+  };
+
+  const handleSignIn = async (form: ISignIn) => {
+    setIsLoading(true);
+    try {
+      const { email, password } = form;
+      await signInRequest({ email, password });
+      reset();
+    } catch (error) {
+      setIsVisible(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Container>
+      <Alerts
+        title="Erro ao realizar login ! Verifique os dados de acesso e tente novamente!"
+        type="error"
+        isVisible={isVisible}
+        closeModalPressed={handleCloseModal}
+      />
       <ImageContent>
         <BackgroundImageContent source={BackgroundImage} />
       </ImageContent>
@@ -63,7 +96,7 @@ const SignIn: React.FC = () => {
           placeholder="E-mail"
           keyboardType="email-address"
           control={control}
-          name="E-mail"
+          name="email"
           error={errors.email && errors.email.message}
         />
 
@@ -75,7 +108,12 @@ const SignIn: React.FC = () => {
           error={errors.password && errors.password.message}
         />
 
-        <PrimaryButton isPrimary title="Entrar" onPressed={handleSubmit()} />
+        <PrimaryButton
+          isPrimary
+          title="Entrar"
+          onPressed={handleSubmit(handleSignIn)}
+          isLoading={loading}
+        />
         <CadasterText />
         <PrimaryButton
           isPrimary={false}
