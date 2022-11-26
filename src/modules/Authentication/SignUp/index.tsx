@@ -26,7 +26,7 @@ interface IFormData {
 const schema = Yup.object().shape({
   name: Yup.string().required('O nome é obrigatório'),
   email: Yup.string()
-    .email('Você deve usar um formato de e-mail: exemplo@email.com')
+    .email('Formato inválido: exemplo@email.com')
     .required('O email é obrigatório'),
   password: Yup.string().min(6).required('A senha é obrigatória.'),
   confirmPassword: Yup.string()
@@ -76,7 +76,6 @@ const SignUp: React.FC = () => {
         setModalTitle('As senhas que você digitou são diferentes!');
       }
     } catch (error) {
-      console.log(error);
       seterrorModalVisible(true);
       setModalTitle(
         'Não foi possível criar o seu usuário, tente novamente mais tarde!',

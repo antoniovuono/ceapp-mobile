@@ -23,12 +23,8 @@ const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
     {} as IAunthenticateResponse,
   );
 
-  console.log(authResponse);
-
   const signIn = async ({ email, password }: ICredentials) => {
     const response = await signInRequest({ email, password });
-
-    console.log(response.data);
 
     const { token, user } = response.data;
 

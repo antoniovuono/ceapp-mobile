@@ -37,7 +37,7 @@ const Input: React.FC<IInputProps> = ({
 
   return (
     <>
-      <Container style={!error && { marginBottom: 7 }}>
+      <Container>
         <IconContent>
           <Feather
             name={iconName}

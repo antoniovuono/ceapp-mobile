@@ -115,6 +115,7 @@ const SignIn: React.FC = () => {
           title="Entrar"
           onPressed={handleSubmit(handleSignIn)}
           isLoading={loading}
+          style={{ marginTop: 10 }}
         />
         <CadasterText />
         <PrimaryButton

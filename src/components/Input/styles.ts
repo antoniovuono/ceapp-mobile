@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex-direction: row;
+  padding: 7px;
 `;
 
 export const IconContent = styled.View`
@@ -27,8 +28,8 @@ export const InputText = styled(TextInput)`
 `;
 
 export const Error = styled.Text`
-  color: ${({ theme }) => theme.colors.PRIMARY_WARNING_RED};
-  font-size: 14px;
+  color: ${({ theme }) => theme.colors.SECONDARY_WARNING_YELLOW};
+  font-size: 12px;
   font-family: ${({ theme }) => theme.fonts.REGULAR};
-  margin: 7px 0;
+  margin-left: 10px;
 `;
