@@ -158,6 +158,7 @@ const SignUp: React.FC = () => {
             title="CADASTRAR"
             onPressed={handleSubmit(handleCreateAccount)}
             isLoading={loading}
+            style={{ marginTop: 10 }}
           />
           <CadasterText />
 
