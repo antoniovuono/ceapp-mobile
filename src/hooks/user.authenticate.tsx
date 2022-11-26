@@ -4,7 +4,7 @@ import {
   IAunthenticateResponse,
   ICredentials,
   IUserAuthRequest,
-} from '../services/interfaces';
+} from '../interfaces';
 import { signInRequest } from '../services/requisitions/UsersRequests';
 
 interface IAuthContext {

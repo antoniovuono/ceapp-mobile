@@ -1,5 +1,5 @@
 import { api } from '../api';
-import { ICreateAccount, ICredentials } from '../interfaces';
+import { ICreateAccount, ICredentials } from '../../interfaces';
 
 const signInRequest = async ({ email, password }: ICredentials) => {
   const response = await api.post('/sessions', {
