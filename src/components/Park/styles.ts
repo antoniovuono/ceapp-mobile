@@ -97,10 +97,12 @@ export const BottomLine = styled.View`
 
 export const DepartueContent = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 
 export const LeftContent = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 
 export const DateTimeInfos = styled.Text<{ bold?: boolean }>`
