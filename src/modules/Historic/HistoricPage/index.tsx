@@ -1,13 +1,14 @@
 import React from 'react';
 import Header from '../../../components/Header';
+import Search from '../../../components/Search';
 
-import { Container, Title } from './styles';
+import { Container } from './styles';
 
 const HistoricPage: React.FC = () => {
   return (
     <Container>
       <Header />
-      <Title>Historic Page</Title>
+      <Search />
     </Container>
   );
 };

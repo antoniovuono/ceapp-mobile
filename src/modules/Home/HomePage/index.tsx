@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import Header from '../../../components/Header';
 import Modal from 'react-native-modal';
 
-import { Container } from './styles';
+import { Container, ParksContainer } from './styles';
 import { ModalContent } from '../../../components/WelcomeModal/styles';
 import Search from '../../../components/Search';
+import Park from '../../../components/Park';
 
 const HomePage: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -21,6 +22,12 @@ const HomePage: React.FC = () => {
       </Modal>
 
       <Search />
+
+      <ParksContainer>
+        <Park />
+
+        <Park />
+      </ParksContainer>
     </Container>
   );
 };

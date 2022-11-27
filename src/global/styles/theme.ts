@@ -13,6 +13,7 @@ export default {
     DARK_GRAY: '#B7B7B7',
     SUCCESS_GREEN: '#59CD90',
     SECONDARY_SUCCESS_GREEN: '#22F000',
+    PRIMARY_TITLE: '#000000',
   },
   fonts: {
     REGULAR: 'FiraSans_400Regular',
