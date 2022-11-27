@@ -24,9 +24,22 @@ interface IAunthenticateResponse {
   user: IUserAuthRequest;
 }
 
+interface IParks {
+  id: string;
+  user_id: string;
+  car_id: string;
+  car_brand: string;
+  car_model: string;
+  car_color: string;
+  departure_date: string;
+  left_date: string;
+  total_amount: string;
+}
+
 export {
   IUserAuthRequest,
   ICredentials,
   IAunthenticateResponse,
   ICreateAccount,
+  IParks,
 };

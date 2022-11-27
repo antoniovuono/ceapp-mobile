@@ -10,6 +10,7 @@ import { signInRequest } from '../services/requisitions/UsersRequests';
 interface IAuthContext {
   user: IUserAuthRequest;
   signIn: (credentials: ICredentials) => Promise<void>;
+  token: string;
 }
 
 interface IAuthProvider {
@@ -37,7 +38,9 @@ const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user: authResponse.user, signIn }}>
+    <AuthContext.Provider
+      value={{ user: authResponse.user, signIn, token: authResponse.token }}
+    >
       {children}
     </AuthContext.Provider>
   );

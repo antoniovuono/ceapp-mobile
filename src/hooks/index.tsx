@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { ParkProvider } from './park';
 import { AuthProvider } from './user.authenticate';
 
 interface IAppProvider {
@@ -6,7 +7,11 @@ interface IAppProvider {
 }
 
 const AppProvider: React.FC<IAppProvider> = ({ children }) => {
-  return <AuthProvider>{children}</AuthProvider>;
+  return (
+    <ParkProvider>
+      <AuthProvider>{children}</AuthProvider>
+    </ParkProvider>
+  );
 };
 
 export default AppProvider;
