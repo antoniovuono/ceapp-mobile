@@ -90,7 +90,7 @@ export const Divider = styled.View`
 `;
 
 export const BottomLine = styled.View`
-  padding: 10px 0;
+  margin-top: 10px;
   flex-direction: row;
   justify-content: space-between;
 `;
