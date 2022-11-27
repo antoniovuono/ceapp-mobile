@@ -44,7 +44,7 @@ const BottomTabs: React.FC = () => {
       />
 
       <Screen
-        name="Historic"
+        name="Histórico"
         component={HistoricPage}
         options={{
           tabBarIcon: ({ color }) => (
@@ -64,7 +64,7 @@ const BottomTabs: React.FC = () => {
       />
 
       <Screen
-        name="Profile"
+        name="Perfil"
         component={MyProfilePage}
         options={{
           tabBarIcon: ({ color }) => (

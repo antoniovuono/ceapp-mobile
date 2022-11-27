@@ -28,9 +28,11 @@ const schema = Yup.object().shape({
   email: Yup.string()
     .email('Formato inválido: exemplo@email.com')
     .required('O email é obrigatório'),
-  password: Yup.string().min(6).required('A senha é obrigatória.'),
+  password: Yup.string()
+    .min(6, 'A senha deve conter no mínimo 6 digitos')
+    .required('A senha é obrigatória.'),
   confirmPassword: Yup.string()
-    .min(6)
+    .min(6, 'A senha deve conter no mínimo 6 digitos')
     .required('É necessário confirmar sua senha.'),
   cpf: Yup.string().min(11).required('CPF/CNPJ é obrigatório.'),
 });
