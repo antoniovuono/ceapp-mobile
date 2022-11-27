@@ -7,5 +7,5 @@ export const Container = styled.View`
 
 export const ParksContainer = styled.View`
   width: 100%;
-  padding: 0 15px;
+  padding: 0 20px;
 `;
