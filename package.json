@@ -19,6 +19,7 @@
     "eslint": "^8.0.1",
     "expo": "~47.0.6",
     "expo-app-loading": "~2.1.1",
+    "expo-community-flipper": "^47.0.0",
     "expo-font": "~11.0.1",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
