@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../../../components/Header';
+import Modal from 'react-native-modal';
 
-import { Container, Title } from './styles';
+import { Container } from './styles';
+import { ModalContent } from '../../../components/WelcomeModal/styles';
 
 const HomePage: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
   return (
     <Container>
       <Header />
-      <Title>HomePage</Title>
+
+      <Modal
+        style={{ justifyContent: 'center', alignItems: 'center' }}
+        isVisible={isVisible}
+      >
+        <ModalContent />
+      </Modal>
     </Container>
   );
 };

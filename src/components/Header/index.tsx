@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
 
 import {
   Container,
