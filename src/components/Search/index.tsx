@@ -52,6 +52,7 @@ const Search: React.FC<ITextProps> = ({ value, onChangeValue, onPressed }) => {
           onBlur={handleOnBlur}
           value={value}
           onChangeText={onChangeValue}
+          maxLength={27}
         />
 
         <SearchButton onPress={onPressed}>
