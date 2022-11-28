@@ -10,6 +10,7 @@ export const ParksContainer = styled.View`
   flex: 1;
   width: 100%;
   padding: 5px 20px;
+  justify-content: center;
 `;
 
 export const ParksList = styled(FlatList).attrs(

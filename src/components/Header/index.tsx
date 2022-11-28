@@ -1,7 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
-import dayjs from 'dayjs';
-import 'dayjs/locale/pt-br';
 
 import {
   Container,
@@ -21,6 +19,11 @@ import {
 } from './styles';
 import { useTheme } from 'styled-components';
 import { useAuth } from '../../hooks/user.authenticate';
+import {
+  dateStandardFormat,
+  dayOfWeekFormat,
+  getCurrentDate,
+} from '../../utils/DateFormats';
 
 const Header: React.FC = () => {
   const [currentDate, setCurrentDate] = useState('');
@@ -30,9 +33,9 @@ const Header: React.FC = () => {
   const { user } = useAuth();
 
   useMemo(() => {
-    const now = dayjs().toDate();
-    const nowFormatted = dayjs(now).format('DD/MM/YYYY');
-    const dayOfWeek = dayjs(now).locale('pt-br').format('dddd');
+    const now = getCurrentDate();
+    const nowFormatted = dateStandardFormat(now);
+    const dayOfWeek = dayOfWeekFormat(now);
 
     setCurrentDate(nowFormatted);
     setcurrentExtensiveDate(dayOfWeek);

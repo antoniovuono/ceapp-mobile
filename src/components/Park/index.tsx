@@ -25,7 +25,7 @@ interface IParkProps {
   color: string;
   brand: string;
   model: string;
-  departureDdate: string;
+  departureDdate: (departure_date: string) => string;
   leftDate: string;
   parcialTime: number;
   parcialPrice: number;
