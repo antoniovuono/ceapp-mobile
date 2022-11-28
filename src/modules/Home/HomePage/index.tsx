@@ -14,15 +14,20 @@ const HomePage: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [parks, setParks] = useState<IParks[]>([]);
 
-  console.log(parks);
-
   const { getParks } = usePark();
   const { token } = useAuth();
 
   const getParksList = async () => {
     try {
       const response = await getParks(token);
-      setParks(response);
+
+      const parkWithoutLeftDate = response.filter(
+        (element: { left_date: null }) => {
+          return element.left_date !== null;
+        },
+      );
+
+      setParks(parkWithoutLeftDate);
     } catch (error) {
       console.log(error);
     }
