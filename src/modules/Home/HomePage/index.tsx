@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../../components/Header';
 import Modal from 'react-native-modal';
 
-import { Container, ParksContainer } from './styles';
+import { Container, ParksContainer, ParksList } from './styles';
 import { ModalContent } from '../../../components/WelcomeModal/styles';
 import Search from '../../../components/Search';
 import Park from '../../../components/Park';
@@ -12,7 +12,7 @@ import { useAuth } from '../../../hooks/user.authenticate';
 
 const HomePage: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [parks, setParks] = useState<IParks>({} as IParks);
+  const [parks, setParks] = useState<IParks[]>([]);
 
   console.log(parks);
 
@@ -46,7 +46,26 @@ const HomePage: React.FC = () => {
       <Search />
 
       <ParksContainer>
-        <Park />
+        <ParksList
+          data={parks}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <Park
+              carPlateId={item.car_id}
+              color={item.car_color}
+              brand={item.car_brand}
+              model={item.car_model}
+              departureDdate={''}
+              leftDate={''}
+              parcialTime={0}
+              parcialPrice={0}
+              isOut={!!item.left_date}
+              buttonPressed={function (): void {
+                throw new Error('Function not implemented.');
+              }}
+            />
+          )}
+        />
       </ParksContainer>
     </Container>
   );

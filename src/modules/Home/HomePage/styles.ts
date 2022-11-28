@@ -1,3 +1,4 @@
+import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -6,6 +7,11 @@ export const Container = styled.View`
 `;
 
 export const ParksContainer = styled.View`
+  flex: 1;
   width: 100%;
-  padding: 0 20px;
+  padding: 5px 20px;
 `;
+
+export const ParksList = styled(FlatList).attrs(
+  {},
+)`` as React.ComponentType as new <DataListProps>() => FlatList<DataListProps>;

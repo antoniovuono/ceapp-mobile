@@ -20,19 +20,45 @@ import {
 } from './styles';
 import { useTheme } from 'styled-components';
 
-const Park: React.FC = () => {
+interface IParkProps {
+  carPlateId: string;
+  color: string;
+  brand: string;
+  model: string;
+  departureDdate: string;
+  leftDate: string;
+  parcialTime: number;
+  parcialPrice: number;
+  isOut: boolean;
+  buttonPressed: () => void;
+}
+
+const Park: React.FC<IParkProps> = ({
+  carPlateId,
+  color,
+  brand,
+  model,
+  departureDdate,
+  leftDate,
+  parcialTime,
+  parcialPrice,
+  isOut,
+  buttonPressed,
+}) => {
   const theme = useTheme();
 
   return (
-    <Content isOut={false}>
+    <Content isOut={isOut}>
       <InformationsContent>
         <UpperLine>
           <CarDetailsContent>
             <CarPlateAndColorContent>
-              <CarPlateId>MIO-5594</CarPlateId>
-              <Color>Preto</Color>
+              <CarPlateId>{carPlateId}</CarPlateId>
+              <Color>{color}</Color>
             </CarPlateAndColorContent>
-            <CarBrandAndModel>Subaru - Imprenza</CarBrandAndModel>
+            <CarBrandAndModel>
+              {brand} - {model}
+            </CarBrandAndModel>
           </CarDetailsContent>
 
           <ParkingDetails>
@@ -43,14 +69,14 @@ const Park: React.FC = () => {
               size={14}
               color={theme.colors.PRIMARY_TITLE}
             />
-            <PartialInfos>1h</PartialInfos>
+            <PartialInfos>{parcialTime}</PartialInfos>
 
             <MaterialIcons
               name="attach-money"
               size={14}
               color={theme.colors.PRIMARY_TITLE}
             />
-            <PartialInfos>10,00</PartialInfos>
+            <PartialInfos>{parcialPrice}</PartialInfos>
           </ParkingDetails>
         </UpperLine>
 
@@ -65,7 +91,7 @@ const Park: React.FC = () => {
               size={14}
               color={theme.colors.PRIMARY_TITLE}
             />
-            <DateTimeInfos>16/10/2022 - 10:00</DateTimeInfos>
+            <DateTimeInfos>{departureDdate}</DateTimeInfos>
           </DepartueContent>
 
           <LeftContent>
@@ -76,12 +102,12 @@ const Park: React.FC = () => {
               size={14}
               color={theme.colors.PRIMARY_TITLE}
             />
-            <DateTimeInfos>16/10/2022 - 10:00</DateTimeInfos>
+            <DateTimeInfos>{leftDate || '--/--/--'}</DateTimeInfos>
           </LeftContent>
         </BottomLine>
       </InformationsContent>
 
-      <ButtonContent>
+      <ButtonContent onPress={buttonPressed}>
         <Ionicons
           name="ios-exit-outline"
           size={24}
