@@ -25,7 +25,7 @@ export const CreateParkContent = styled.View`
 `;
 
 export const CreateParkModal = styled.View`
-  height: 340px;
+  height: 450px;
   width: 336px;
   background-color: ${({ theme }) => theme.colors.SECONDARY_TITLE_WHITE};
   border-radius: 6px;

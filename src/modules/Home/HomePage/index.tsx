@@ -27,17 +27,31 @@ import { useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  createPark,
+  listByLicensePlate,
+} from '../../../services/requisitions/ParkRequests';
+
+interface IFormData {
+  car_brand: string;
+  car_model: string;
+  car_id: string;
+  car_color: string;
+}
 
 const schema = Yup.object().shape({
-  brand: Yup.string().required('Marca é obrigatória'),
-  model: Yup.string().required('Modelo é obrigatório'),
+  car_brand: Yup.string().required('Marca é obrigatória'),
+  car_model: Yup.string().required('Modelo é obrigatório'),
+  car_color: Yup.string().required('Cor é obrigatória'),
   car_id: Yup.string().required('Placa é obrigatória'),
 });
 
 const HomePage: React.FC = () => {
   const [parks, setParks] = useState<IParks[]>([]);
   const [loading, setLoading] = useState(false);
+  const [addParkLoading, setAddParkLoading] = useState(false);
   const [isParkCadasterVisible, setIsParkCadasterVisible] = useState(false);
+  const [carId, setCarId] = useState('');
 
   const { getParks } = usePark();
   const { token } = useAuth();
@@ -59,7 +73,7 @@ const HomePage: React.FC = () => {
 
       const parkWithoutLeftDate = response.filter(
         (element: { left_date: null }) => {
-          return element.left_date !== null;
+          return element.left_date === null;
         },
       );
 
@@ -77,9 +91,57 @@ const HomePage: React.FC = () => {
     return formatted_date;
   };
 
+  const handleAddNewPark = async (form: IFormData) => {
+    const { car_id, car_model, car_brand, car_color } = form;
+    setAddParkLoading(true);
+    try {
+      await createPark(car_brand, car_color, car_id, car_model, token);
+      reset();
+      setIsParkCadasterVisible(false);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setAddParkLoading(false);
+    }
+  };
+
+  const handleFindByLicensePlate = async () => {
+    setLoading(true);
+    try {
+      const response = await listByLicensePlate(carId, token);
+
+      console.log(response);
+      setParks(response);
+      setCarId('');
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
+    const getParksList = async () => {
+      setLoading(true);
+      try {
+        const response = await getParks(token);
+
+        const parkWithoutLeftDate = response.filter(
+          (element: { left_date: null }) => {
+            return element.left_date === null;
+          },
+        );
+
+        setParks(parkWithoutLeftDate);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     getParksList();
-  }, []);
+  }, [!isParkCadasterVisible]);
 
   return (
     <Container>
@@ -92,7 +154,11 @@ const HomePage: React.FC = () => {
         <ModalContent />
       </Modal>
 
-      <Search />
+      <Search
+        onChangeValue={setCarId}
+        value={carId}
+        onPressed={handleFindByLicensePlate}
+      />
 
       <ParksContainer>
         {loading ? (
@@ -151,8 +217,8 @@ const HomePage: React.FC = () => {
             placeholder="Marca do carro"
             iconName="arrow-down-circle"
             control={control}
-            name="brand"
-            error={errors.brand && errors.brand.message}
+            name="car_brand"
+            error={errors.car_brand && errors.car_brand.message}
             autoCapitalize="none"
             keyboardType="default"
           />
@@ -160,8 +226,17 @@ const HomePage: React.FC = () => {
             placeholder="Modelo do carro"
             iconName="arrow-right-circle"
             control={control}
-            name="model"
-            error={errors.model && errors.model.message}
+            name="car_model"
+            error={errors.car_model && errors.car_model.message}
+            autoCapitalize="none"
+            keyboardType="default"
+          />
+          <Input
+            placeholder="Cor do carro"
+            iconName="cloud"
+            control={control}
+            name="car_color"
+            error={errors.car_color && errors.car_color.message}
             autoCapitalize="none"
             keyboardType="default"
           />
@@ -176,7 +251,12 @@ const HomePage: React.FC = () => {
           />
 
           <ButtonContent>
-            <PrimaryButton isPrimary title="ENTRADA" />
+            <PrimaryButton
+              isPrimary
+              title="ENTRADA"
+              isLoading={addParkLoading}
+              onPressed={handleSubmit(handleAddNewPark)}
+            />
           </ButtonContent>
         </CreateParkModal>
       </Modal>

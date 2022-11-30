@@ -11,7 +11,7 @@ import { useTheme } from 'styled-components';
 
 interface ITextProps {
   value?: string;
-  onChangeValue?: () => string;
+  onChangeValue?: any;
   onPressed: () => void;
 }
 

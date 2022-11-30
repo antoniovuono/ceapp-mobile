@@ -58,7 +58,7 @@ const Header: React.FC = () => {
               <Price greenPrice>R$</Price>{' '}
               {user.first_hour ? user.first_hour : '--'} /{' '}
               <Price greenPrice>R$</Price>{' '}
-              {user.first_hour ? user.first_hour : '--'}
+              {user.first_hour ? user.other_hours : '--'}
             </Price>
             <PriceLabel>Primeira hora / Demais horas</PriceLabel>
           </PriceContent>
@@ -66,7 +66,7 @@ const Header: React.FC = () => {
 
         <BottomLine>
           <CapacityContent>
-            <Capacity>Capacidade: -- de -- </Capacity>
+            <Capacity>Capacidade: -- </Capacity>
           </CapacityContent>
 
           <CashierContent>
