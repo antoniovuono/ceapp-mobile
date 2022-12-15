@@ -27,10 +27,7 @@ import { useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  createPark,
-  listByLicensePlate,
-} from '../../../services/requisitions/ParkRequests';
+import { listByLicensePlate } from '../../../services/requisitions/ParkRequests';
 
 interface IFormData {
   car_brand: string;
@@ -53,7 +50,7 @@ const HomePage: React.FC = () => {
   const [isParkCadasterVisible, setIsParkCadasterVisible] = useState(false);
   const [carId, setCarId] = useState('');
 
-  const { getParks } = usePark();
+  const { getParks, createParks } = usePark();
   const { token } = useAuth();
   const theme = useTheme();
 
@@ -72,20 +69,6 @@ const HomePage: React.FC = () => {
     return formatted_date;
   };
 
-  const handleAddNewPark = async (form: IFormData) => {
-    const { car_id, car_model, car_brand, car_color } = form;
-    setAddParkLoading(true);
-    try {
-      await createPark(car_brand, car_color, car_id, car_model, token);
-      reset();
-      setIsParkCadasterVisible(false);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setAddParkLoading(false);
-    }
-  };
-
   const handleFindByLicensePlate = async () => {
     setLoading(true);
     try {
@@ -98,6 +81,20 @@ const HomePage: React.FC = () => {
       console.log(err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAddNewPark = async (form: IFormData) => {
+    const { car_id, car_model, car_brand, car_color } = form;
+    setAddParkLoading(true);
+    try {
+      await createParks(car_brand, car_color, car_id, car_model, token);
+      reset();
+      setIsParkCadasterVisible(false);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setAddParkLoading(false);
     }
   };
 
@@ -120,9 +117,8 @@ const HomePage: React.FC = () => {
         setLoading(false);
       }
     };
-
     getParksList();
-  }, [!isParkCadasterVisible]);
+  }, []);
 
   return (
     <Container>
