@@ -1,11 +1,17 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { api } from '../services/api';
 import {
   IAunthenticateResponse,
   ICredentials,
   IUserAuthRequest,
 } from '../interfaces';
-import { signInRequest } from '../services/requisitions/UsersRequests';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface IAuthContext {
   user: IUserAuthRequest;
@@ -24,8 +30,13 @@ const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
     {} as IAunthenticateResponse,
   );
 
+  const userStorageKey = '@ceapp:user';
+
   const signIn = async ({ email, password }: ICredentials) => {
-    const response = await signInRequest({ email, password });
+    const response = await api.post('/sessions', {
+      email,
+      password,
+    });
 
     const { token, user } = response.data;
 
@@ -35,7 +46,21 @@ const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
       token,
       user,
     });
+    await AsyncStorage.setItem(userStorageKey, JSON.stringify({ token, user }));
   };
+
+  useEffect(() => {
+    const loadUserStoraged = async () => {
+      const userStoraged = await AsyncStorage.getItem(userStorageKey);
+
+      if (userStoraged) {
+        const userLogged = JSON.parse(userStoraged);
+        setAuthResposne(userLogged);
+      }
+    };
+
+    loadUserStoraged();
+  }, []);
 
   return (
     <AuthContext.Provider

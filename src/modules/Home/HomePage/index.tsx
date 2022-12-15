@@ -27,7 +27,6 @@ import { useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { listByLicensePlate } from '../../../services/requisitions/ParkRequests';
 
 interface IFormData {
   car_brand: string;
@@ -44,13 +43,12 @@ const schema = Yup.object().shape({
 });
 
 const HomePage: React.FC = () => {
-  const [parks, setParks] = useState<IParks[]>([]);
-  const [loading, setLoading] = useState(false);
   const [addParkLoading, setAddParkLoading] = useState(false);
   const [isParkCadasterVisible, setIsParkCadasterVisible] = useState(false);
   const [carId, setCarId] = useState('');
+  const [loadingParkList, setLoadingParkList] = useState(false);
 
-  const { getParks, createParks } = usePark();
+  const { getParks, createParks, openParks } = usePark();
   const { token } = useAuth();
   const theme = useTheme();
 
@@ -69,21 +67,6 @@ const HomePage: React.FC = () => {
     return formatted_date;
   };
 
-  const handleFindByLicensePlate = async () => {
-    setLoading(true);
-    try {
-      const response = await listByLicensePlate(carId, token);
-
-      console.log(response);
-      setParks(response);
-      setCarId('');
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleAddNewPark = async (form: IFormData) => {
     const { car_id, car_model, car_brand, car_color } = form;
     setAddParkLoading(true);
@@ -99,26 +82,19 @@ const HomePage: React.FC = () => {
   };
 
   useEffect(() => {
-    const getParksList = async () => {
-      setLoading(true);
+    function bootstrap() {
       try {
-        const response = await getParks(token);
-
-        const parkWithoutLeftDate = response.filter(
-          (element: { left_date: null }) => {
-            return element.left_date === null;
-          },
-        );
-
-        setParks(parkWithoutLeftDate);
-      } catch (error) {
-        console.log(error);
+        setLoadingParkList(true);
+        getParks(token);
+      } catch (err) {
+        console.log(err);
       } finally {
-        setLoading(false);
+        setLoadingParkList(false);
       }
-    };
-    getParksList();
-  }, []);
+    }
+
+    bootstrap();
+  }, [getParks, openParks, token]);
 
   return (
     <Container>
@@ -131,21 +107,17 @@ const HomePage: React.FC = () => {
         <ModalContent />
       </Modal>
 
-      <Search
-        onChangeValue={setCarId}
-        value={carId}
-        onPressed={handleFindByLicensePlate}
-      />
+      <Search onChangeValue={setCarId} value={carId} onPressed={() => {}} />
 
       <ParksContainer>
-        {loading ? (
+        {loadingParkList ? (
           <ActivityIndicator
             size="large"
             color={theme.colors.PRIMARY_BACKGROUND_BLUE}
           />
         ) : (
           <ParksList
-            data={parks}
+            data={openParks}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
               <Park

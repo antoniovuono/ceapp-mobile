@@ -3,7 +3,9 @@ import React, {
   ReactNode,
   useCallback,
   useContext,
+  useState,
 } from 'react';
+import { IParks } from '../interfaces';
 import { api } from '../services/api';
 
 interface IAuthContext {
@@ -15,6 +17,7 @@ interface IAuthContext {
     car_color: string,
     token: string,
   ) => Promise<any>;
+  openParks: IParks[];
 }
 
 interface IAuthProvider {
@@ -24,6 +27,8 @@ interface IAuthProvider {
 const ParkContext = createContext<IAuthContext>({} as IAuthContext);
 
 const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
+  const [openParks, setOpenParks] = useState<IParks[]>([]);
+
   const createParks = useCallback(
     async (
       car_id: string,
@@ -55,15 +60,24 @@ const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
   );
 
   const getParks = useCallback(async (token: string) => {
-    const response = await api.get('/park/park-list', {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    try {
+      const response = await api.get('/park/park-list', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-    return response.data;
+      const openParksFilter = response.data.filter(
+        (element: { left_date: null }) => {
+          return element.left_date === null;
+        },
+      );
+      setOpenParks(openParksFilter);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   return (
-    <ParkContext.Provider value={{ getParks, createParks }}>
+    <ParkContext.Provider value={{ getParks, createParks, openParks }}>
       {children}
     </ParkContext.Provider>
   );
