@@ -66,25 +66,6 @@ const HomePage: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const getParksList = async () => {
-    setLoading(true);
-    try {
-      const response = await getParks(token);
-
-      const parkWithoutLeftDate = response.filter(
-        (element: { left_date: null }) => {
-          return element.left_date === null;
-        },
-      );
-
-      setParks(parkWithoutLeftDate);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const formattedDate = (departure_date: string) => {
     const formatted_date = dateHourFormat(departure_date);
 

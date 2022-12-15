@@ -35,6 +35,7 @@ const schema = Yup.object().shape({
 const SignIn: React.FC = () => {
   const [loading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
 
   const { signIn } = useAuth();
 
@@ -65,6 +66,8 @@ const SignIn: React.FC = () => {
       reset();
     } catch (error) {
       setIsVisible(true);
+      const errorMessage = error?.response?.data?.message;
+      setModalTitle(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +76,7 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <Alerts
-        title="Erro ao realizar login ! Verifique os dados de acesso e tente novamente!"
+        title={modalTitle}
         type="error"
         isVisible={isVisible}
         closeModalPressed={handleCloseModal}

@@ -79,9 +79,8 @@ const SignUp: React.FC = () => {
       }
     } catch (error) {
       seterrorModalVisible(true);
-      setModalTitle(
-        'Não foi possível criar o seu usuário, tente novamente mais tarde!',
-      );
+      const errorMessage = error?.response?.data?.message;
+      setModalTitle(errorMessage);
     } finally {
       setLoading(false);
     }
