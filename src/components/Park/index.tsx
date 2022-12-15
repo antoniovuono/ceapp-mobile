@@ -31,6 +31,7 @@ interface IParkProps {
   parcialPrice: number;
   isOut: boolean;
   buttonPressed: () => void;
+  deletePressed: (park_id: string) => void;
 }
 
 const Park: React.FC<IParkProps> = ({
@@ -44,11 +45,12 @@ const Park: React.FC<IParkProps> = ({
   parcialPrice,
   isOut,
   buttonPressed,
+  deletePressed,
 }) => {
   const theme = useTheme();
 
   return (
-    <Content isOut={isOut}>
+    <Content isOut={isOut} activeOpacity={0.7} onLongPress={deletePressed}>
       <InformationsContent>
         <UpperLine>
           <CarDetailsContent>

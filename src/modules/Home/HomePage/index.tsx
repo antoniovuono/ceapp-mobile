@@ -12,7 +12,7 @@ import {
   ParksContainer,
   ParksList,
 } from './styles';
-import { ModalContent } from '../../../components/WelcomeModal/styles';
+import { WelcomeModalContent } from '../../../components/WelcomeModal/styles';
 import Search from '../../../components/Search';
 import Park from '../../../components/Park';
 import { usePark } from '../../../hooks/park';
@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
   const [carId, setCarId] = useState('');
   const [loadingParkList, setLoadingParkList] = useState(false);
 
-  const { getParks, createParks, openParks } = usePark();
+  const { getParks, createParks, openParks, deletePark } = usePark();
   const { token } = useAuth();
   const theme = useTheme();
 
@@ -80,6 +80,14 @@ const HomePage: React.FC = () => {
     }
   };
 
+  const handleDeletePressed = (park_id: string) => {
+    try {
+      deletePark(park_id, token);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     function bootstrap() {
       try {
@@ -102,10 +110,10 @@ const HomePage: React.FC = () => {
         style={{ justifyContent: 'center', alignItems: 'center' }}
         isVisible={false}
       >
-        <ModalContent />
+        <WelcomeModalContent />
       </Modal>
 
-      <Search onChangeValue={setCarId} value={carId} onPressed={() => {}} />
+      <Search onChangeValue={setCarId} value={carId} />
 
       <ParksContainer>
         {loadingParkList ? (
@@ -132,6 +140,7 @@ const HomePage: React.FC = () => {
                 buttonPressed={function (): void {
                   throw new Error('Function not implemented.');
                 }}
+                deletePressed={() => handleDeletePressed(item.id)}
               />
             )}
           />
@@ -203,7 +212,7 @@ const HomePage: React.FC = () => {
               isPrimary
               title="ENTRADA"
               isLoading={addParkLoading}
-              onPressed={handleSubmit(handleAddNewPark)}
+              onPressed={() => handleSubmit(() => handleAddNewPark)}
             />
           </ButtonContent>
         </CreateParkModal>

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/native';
 
-export const Content = styled.View<{ isOut: boolean }>`
+export const Content = styled.TouchableOpacity<{ isOut: boolean }>`
   margin-bottom: 10px;
   border-radius: 6px;
   flex-direction: row;

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const ModalContent = styled.View`
+export const WelcomeModalContent = styled.View`
   width: 300px;
   height: 300px;
   background-color: ${({ theme }) => theme.colors.SECONDARY_BACKGROUND_WHITE};

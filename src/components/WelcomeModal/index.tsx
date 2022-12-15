@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { ModalContent, SubTitle, Title } from './styles';
+import { WelcomeModalContent, SubTitle, Title } from './styles';
 
 const WelcomeModal: React.FC = () => {
   return (
-    <ModalContent>
+    <WelcomeModalContent>
       <Title>Informação necessárias</Title>
       <SubTitle>Entre com os dados para completar o seu cadastro</SubTitle>
-    </ModalContent>
+    </WelcomeModalContent>
   );
 };
 
