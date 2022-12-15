@@ -18,6 +18,7 @@ interface IAuthContext {
     token: string,
   ) => Promise<any>;
   openParks: IParks[];
+  searchOpenPark: (license_plate: string, token: string) => Promise<void>;
 }
 
 interface IAuthProvider {
@@ -60,24 +61,45 @@ const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
   );
 
   const getParks = useCallback(async (token: string) => {
-    try {
-      const response = await api.get('/park/park-list', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+    const response = await api.get('/park/park-list', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-      const openParksFilter = response.data.filter(
-        (element: { left_date: null }) => {
-          return element.left_date === null;
-        },
-      );
-      setOpenParks(openParksFilter);
-    } catch (error) {
-      console.log(error);
-    }
+    const openParksFilter = response.data.filter(
+      (element: { left_date: null }) => {
+        return element.left_date === null;
+      },
+    );
+    setOpenParks(openParksFilter);
   }, []);
 
+  const searchOpenPark = useCallback(
+    async (license_plate: string, token: string) => {
+      const jwt = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await api.get('park/list-by-plate', {
+        params: { license_plate },
+        headers: jwt,
+      });
+
+      console.log('response', response.data);
+
+      setOpenParks(response.data);
+    },
+    [],
+  );
+
   return (
-    <ParkContext.Provider value={{ getParks, createParks, openParks }}>
+    <ParkContext.Provider
+      value={{
+        getParks,
+        createParks,
+        openParks,
+        searchOpenPark,
+      }}
+    >
       {children}
     </ParkContext.Provider>
   );

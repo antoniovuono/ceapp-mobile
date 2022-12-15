@@ -16,7 +16,6 @@ import { ModalContent } from '../../../components/WelcomeModal/styles';
 import Search from '../../../components/Search';
 import Park from '../../../components/Park';
 import { usePark } from '../../../hooks/park';
-import { IParks } from '../../../interfaces';
 import { useAuth } from '../../../hooks/user.authenticate';
 import { ActivityIndicator } from 'react-native';
 import { useTheme } from 'styled-components';
@@ -92,9 +91,8 @@ const HomePage: React.FC = () => {
         setLoadingParkList(false);
       }
     }
-
     bootstrap();
-  }, [getParks, openParks, token]);
+  }, [openParks]);
 
   return (
     <Container>
@@ -119,6 +117,7 @@ const HomePage: React.FC = () => {
           <ParksList
             data={openParks}
             keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
               <Park
                 carPlateId={item.car_id}
