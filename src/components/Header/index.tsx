@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { FontAwesome5 } from '@expo/vector-icons';
 
 import {
   Container,
@@ -12,7 +11,6 @@ import {
   Price,
   PriceLabel,
 } from './styles';
-import { useTheme } from 'styled-components';
 import { useAuth } from '../../hooks/user.authenticate';
 import {
   dateStandardFormat,
