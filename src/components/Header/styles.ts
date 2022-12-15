@@ -3,13 +3,13 @@ import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
   width: 100%;
-  height: 130px;
+  height: 140px;
   background-color: ${({ theme }) => theme.colors.PRIMARY_BACKGROUND_BLUE};
 `;
 
 export const Content = styled.View`
   width: 100%;
-  margin-top: ${getStatusBarHeight()}px;
+  margin-top: ${getStatusBarHeight() + 12}px;
   justify-content: center;
   align-items: center;
   padding: 0 19px;
