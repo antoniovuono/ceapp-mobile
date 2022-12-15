@@ -60,28 +60,6 @@ export const CarBrandAndModel = styled.Text`
     `}
 `;
 
-export const ParkingDetails = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const PartialInfos = styled.Text<{ bold?: boolean }>`
-  font-size: 10px;
-  ${({ theme }) =>
-    theme &&
-    css`
-      font-family: ${theme.fonts.REGULAR};
-      color: ${theme.colors.PRIMARY_TITLE};
-    `}
-
-  ${({ bold }) =>
-    bold &&
-    css`
-      font-family: ${({ theme }) => theme.fonts.BOLD};
-    `}
-`;
-
 export const Divider = styled.View`
   width: 100%;
   height: 1px;

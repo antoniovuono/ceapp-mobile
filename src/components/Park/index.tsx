@@ -62,24 +62,6 @@ const Park: React.FC<IParkProps> = ({
               {brand} - {model}
             </CarBrandAndModel>
           </CarDetailsContent>
-
-          <ParkingDetails>
-            <PartialInfos bold>Parcial:</PartialInfos>
-            <Ionicons
-              style={{ marginLeft: 2 }}
-              name="time-outline"
-              size={14}
-              color={theme.colors.PRIMARY_TITLE}
-            />
-            <PartialInfos>{parcialTime}</PartialInfos>
-
-            <MaterialIcons
-              name="attach-money"
-              size={14}
-              color={theme.colors.PRIMARY_TITLE}
-            />
-            <PartialInfos>{parcialPrice}</PartialInfos>
-          </ParkingDetails>
         </UpperLine>
 
         <Divider />

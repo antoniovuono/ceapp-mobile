@@ -8,14 +8,9 @@ import {
   UpperLine,
   TitleContent,
   Date,
-  BottomLine,
   PriceContent,
   Price,
   PriceLabel,
-  Cashier,
-  Capacity,
-  CashierContent,
-  CapacityContent,
 } from './styles';
 import { useTheme } from 'styled-components';
 import { useAuth } from '../../hooks/user.authenticate';
@@ -29,7 +24,6 @@ const Header: React.FC = () => {
   const [currentDate, setCurrentDate] = useState('');
   const [currentExtensiveDate, setcurrentExtensiveDate] = useState('');
 
-  const theme = useTheme();
   const { user } = useAuth();
 
   useMemo(() => {
@@ -63,21 +57,6 @@ const Header: React.FC = () => {
             <PriceLabel>Primeira hora / Demais horas</PriceLabel>
           </PriceContent>
         </UpperLine>
-
-        <BottomLine>
-          <CapacityContent>
-            <Capacity>Capacidade: -- </Capacity>
-          </CapacityContent>
-
-          <CashierContent>
-            <FontAwesome5
-              name="money-bill"
-              size={12}
-              color={theme.colors.SECONDARY_SUCCESS_GREEN}
-            />
-            <Cashier>Caixa: R$ --,--</Cashier>
-          </CashierContent>
-        </BottomLine>
       </Content>
     </Container>
   );
