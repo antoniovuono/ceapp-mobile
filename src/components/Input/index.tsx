@@ -11,6 +11,7 @@ interface IInputProps extends TextInputProps {
   control: Control;
   error: string | any;
   name: string;
+  isWhite?: boolean;
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -19,6 +20,7 @@ const Input: React.FC<IInputProps> = ({
   name,
   control,
   error,
+  isWhite,
   ...rest
 }) => {
   const theme = useTheme();
@@ -38,7 +40,7 @@ const Input: React.FC<IInputProps> = ({
   return (
     <>
       <Container>
-        <IconContent>
+        <IconContent isWhtie={isWhite}>
           <Feather
             name={iconName}
             size={22}

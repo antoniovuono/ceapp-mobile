@@ -15,6 +15,7 @@ export default {
     SECONDARY_SUCCESS_GREEN: '#22F000',
     PRIMARY_TITLE: '#000000',
     SECONDARY_TITLE: '#525252',
+    THIRD_TITLE: '#3D2929',
   },
   fonts: {
     REGULAR: 'FiraSans_400Regular',

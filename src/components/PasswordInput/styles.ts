@@ -6,8 +6,11 @@ export const Container = styled.View`
   padding: 7px;
 `;
 
-export const IconContent = styled.View`
-  background-color: ${({ theme }) => theme.colors.SECONDARY_BACKGROUND_WHITE};
+export const IconContent = styled.View<{ isWhtie?: boolean }>`
+  background-color: ${({ theme, isWhtie }) =>
+    isWhtie
+      ? theme.colors.SECONDARY_TITLE_WHITE
+      : theme.colors.SECONDARY_BACKGROUND_WHITE};
   width: 55px;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
@@ -25,8 +28,11 @@ export const InputText = styled(TextInput)`
   padding: 0 15px;
 `;
 
-export const VisualizePassword = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.colors.SECONDARY_BACKGROUND_WHITE};
+export const VisualizePassword = styled.TouchableOpacity<{ isWhtie?: boolean }>`
+  background-color: ${({ theme, isWhtie }) =>
+    isWhtie
+      ? theme.colors.SECONDARY_TITLE_WHITE
+      : theme.colors.SECONDARY_BACKGROUND_WHITE};
   width: 55px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;

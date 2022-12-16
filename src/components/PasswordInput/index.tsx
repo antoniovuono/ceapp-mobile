@@ -19,6 +19,7 @@ interface IInputProps extends TouchableOpacityProps {
   control: Control;
   error: string | any;
   name: string;
+  isWhite?: boolean;
 }
 
 const PasswordInput: React.FC<IInputProps> = ({
@@ -28,6 +29,7 @@ const PasswordInput: React.FC<IInputProps> = ({
   name,
   control,
   error,
+  isWhite,
   ...rest
 }) => {
   const theme = useTheme();
@@ -52,7 +54,7 @@ const PasswordInput: React.FC<IInputProps> = ({
   return (
     <>
       <Container>
-        <IconContent>
+        <IconContent isWhtie={isWhite}>
           <Feather
             name={iconName}
             size={22}
@@ -85,7 +87,11 @@ const PasswordInput: React.FC<IInputProps> = ({
           )}
         />
 
-        <VisualizePassword activeOpacity={1} onPress={handlePasswordIsVisible}>
+        <VisualizePassword
+          activeOpacity={1}
+          onPress={handlePasswordIsVisible}
+          isWhtie={isWhite}
+        >
           {isPasswordIsVisible ? (
             <Feather name="eye" size={22} color={theme.colors.DARK_GRAY} />
           ) : (
