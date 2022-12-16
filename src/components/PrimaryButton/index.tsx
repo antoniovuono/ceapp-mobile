@@ -20,12 +20,7 @@ const PrimaryButton: React.FC<IButton> = ({
   const theme = useTheme();
 
   return (
-    <ButtonContent
-      {...rest}
-      isPrimary={isPrimary}
-      onPress={onPressed}
-      activeOpacity={0.7}
-    >
+    <ButtonContent {...rest} isPrimary={isPrimary} onPress={onPressed}>
       {isLoading ? (
         <ActivityIndicator color={theme.colors.SECONDARY_BACKGROUND_WHITE} />
       ) : (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import {
   Content,
   InformationsContent,
@@ -10,8 +10,6 @@ import {
   Color,
   CarBrandAndModel,
   CarDetailsContent,
-  ParkingDetails,
-  PartialInfos,
   Divider,
   BottomLine,
   DateTimeInfos,
@@ -31,7 +29,7 @@ interface IParkProps {
   parcialPrice: number;
   isOut: boolean;
   buttonPressed: () => void;
-  deletePressed: (park_id: string) => void;
+  deletePressed: () => void;
 }
 
 const Park: React.FC<IParkProps> = ({
@@ -41,8 +39,6 @@ const Park: React.FC<IParkProps> = ({
   model,
   departureDdate,
   leftDate,
-  parcialTime,
-  parcialPrice,
   isOut,
   buttonPressed,
   deletePressed,

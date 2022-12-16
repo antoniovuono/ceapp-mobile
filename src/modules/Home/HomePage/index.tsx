@@ -22,16 +22,16 @@ import { useTheme } from 'styled-components';
 import { dateHourFormat } from '../../../utils/DateFormats';
 import PrimaryButton from '../../../components/PrimaryButton';
 import Input from '../../../components/Input';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 interface IFormData {
-  car_brand: string;
-  car_model: string;
-  car_id: string;
-  car_color: string;
+  car_brand: FieldValues;
+  car_model: FieldValues;
+  car_id: FieldValues;
+  car_color: FieldValues;
 }
 
 const schema = Yup.object().shape({
@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
   const [carId, setCarId] = useState('');
   const [loadingParkList, setLoadingParkList] = useState(false);
 
-  const { getParks, createParks, openParks, deletePark } = usePark();
+  const { getParks, createParks, openParks, deletePark, exitCar } = usePark();
   const { token } = useAuth();
   const theme = useTheme();
 
@@ -66,8 +66,9 @@ const HomePage: React.FC = () => {
     return formatted_date;
   };
 
-  const handleAddNewPark = async (form: IFormData) => {
+  const handleAddNewPark = async (form: FieldValues) => {
     const { car_id, car_model, car_brand, car_color } = form;
+
     setAddParkLoading(true);
     try {
       await createParks(car_brand, car_color, car_id, car_model, token);
@@ -85,6 +86,14 @@ const HomePage: React.FC = () => {
       deletePark(park_id, token);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const handleExitCart = (park_id: string) => {
+    try {
+      exitCar(park_id, token);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -137,9 +146,7 @@ const HomePage: React.FC = () => {
                 parcialTime={0}
                 parcialPrice={0}
                 isOut={!!item.left_date}
-                buttonPressed={function (): void {
-                  throw new Error('Function not implemented.');
-                }}
+                buttonPressed={() => handleExitCart(item.id)}
                 deletePressed={() => handleDeletePressed(item.id)}
               />
             )}
@@ -212,7 +219,7 @@ const HomePage: React.FC = () => {
               isPrimary
               title="ENTRADA"
               isLoading={addParkLoading}
-              onPressed={() => handleSubmit(() => handleAddNewPark)}
+              onPressed={handleSubmit(handleAddNewPark)}
             />
           </ButtonContent>
         </CreateParkModal>

@@ -1,6 +1,7 @@
 import React, {
   createContext,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -48,6 +49,26 @@ const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
     });
     await AsyncStorage.setItem(userStorageKey, JSON.stringify({ token, user }));
   };
+
+  const addParkPrices = useCallback(
+    async (firsrt_hour: number, other_hours: number, token: string) => {
+      const jwt = { Authorization: `Bearer ${token}` };
+
+      const response = await api.patch(
+        '/users/add-prices',
+        {
+          firsrt_hour,
+          other_hours,
+        },
+        {
+          headers: jwt,
+        },
+      );
+
+      return response.data;
+    },
+    [],
+  );
 
   useEffect(() => {
     const loadUserStoraged = async () => {

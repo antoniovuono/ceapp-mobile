@@ -20,6 +20,7 @@ interface IAuthContext {
   openParks: IParks[];
   searchOpenPark: (license_plate: string, token: string) => Promise<void>;
   deletePark: (id: string, token: string) => Promise<void>;
+  exitCar: (park_id: string, token: string) => Promise<void>;
 }
 
 interface IAuthProvider {
@@ -85,8 +86,6 @@ const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
         headers: jwt,
       });
 
-      console.log('response', response.data);
-
       setOpenParks(response.data);
     },
     [],
@@ -103,6 +102,19 @@ const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
     return response.data;
   }, []);
 
+  const exitCar = useCallback(async (park_id: string, token: string) => {
+    const jwt = {
+      Authorization: `Bearer ${token}`,
+    };
+    const response = await api.patch(
+      `park/exit-car/${park_id}`,
+      {},
+      { headers: jwt },
+    );
+
+    return response.data;
+  }, []);
+
   return (
     <ParkContext.Provider
       value={{
@@ -111,6 +123,7 @@ const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
         openParks,
         searchOpenPark,
         deletePark,
+        exitCar,
       }}
     >
       {children}
