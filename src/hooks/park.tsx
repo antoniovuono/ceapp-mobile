@@ -17,10 +17,11 @@ interface IAuthContext {
     car_color: string,
     token: string,
   ) => Promise<any>;
-  openParks: IParks[];
   searchOpenPark: (license_plate: string, token: string) => Promise<void>;
   deletePark: (id: string, token: string) => Promise<void>;
   exitCar: (park_id: string, token: string) => Promise<void>;
+  openParks: IParks[];
+  closedParks: IParks[];
 }
 
 interface IAuthProvider {
@@ -31,6 +32,7 @@ const ParkContext = createContext<IAuthContext>({} as IAuthContext);
 
 const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
   const [openParks, setOpenParks] = useState<IParks[]>([]);
+  const [closedParks, setClosedParks] = useState<IParks[]>([]);
 
   const createParks = useCallback(
     async (
@@ -72,7 +74,15 @@ const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
         return element.left_date === null;
       },
     );
+
+    const closedParksFilter = response.data.filter(
+      (element: { left_date: null }) => {
+        return element.left_date !== null;
+      },
+    );
+
     setOpenParks(openParksFilter);
+    setClosedParks(closedParksFilter);
   }, []);
 
   const searchOpenPark = useCallback(
@@ -124,6 +134,7 @@ const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
         searchOpenPark,
         deletePark,
         exitCar,
+        closedParks,
       }}
     >
       {children}

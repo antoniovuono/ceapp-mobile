@@ -136,8 +136,6 @@ const HomePage: React.FC = () => {
                 model={item.car_model}
                 departureDdate={formattedDate(item.departure_date)}
                 leftDate={''}
-                parcialTime={0}
-                parcialPrice={0}
                 isOut={!!item.left_date}
                 buttonPressed={() => handleExitCart(item.id)}
                 deletePressed={() => handleDeletePressed(item.id)}

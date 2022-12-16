@@ -25,10 +25,8 @@ interface IParkProps {
   model: string;
   departureDdate: string;
   leftDate: string;
-  parcialTime: number;
-  parcialPrice: number;
   isOut: boolean;
-  buttonPressed: () => void;
+  buttonPressed?: () => void;
   deletePressed: () => void;
 }
 
@@ -87,13 +85,15 @@ const Park: React.FC<IParkProps> = ({
         </BottomLine>
       </InformationsContent>
 
-      <ButtonContent onPress={buttonPressed}>
-        <Ionicons
-          name="ios-exit-outline"
-          size={24}
-          color={theme.colors.PRIMARY_WARNING_RED}
-        />
-      </ButtonContent>
+      {!leftDate ? (
+        <ButtonContent onPress={buttonPressed}>
+          <Ionicons
+            name="ios-exit-outline"
+            size={24}
+            color={theme.colors.PRIMARY_WARNING_RED}
+          />
+        </ButtonContent>
+      ) : null}
     </Content>
   );
 };
