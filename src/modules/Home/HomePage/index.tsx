@@ -27,13 +27,6 @@ import { FieldValues, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-interface IFormData {
-  car_brand: FieldValues;
-  car_model: FieldValues;
-  car_id: FieldValues;
-  car_color: FieldValues;
-}
-
 const schema = Yup.object().shape({
   car_brand: Yup.string().required('Marca é obrigatória'),
   car_model: Yup.string().required('Modelo é obrigatório'),
