@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import Header from '../../../components/Header';
 import Input from '../../../components/Input';
 import PrimaryButton from '../../../components/PrimaryButton';
@@ -15,6 +15,7 @@ import {
   Title,
 } from './styles';
 import PasswordInput from '../../../components/PasswordInput';
+import { useAuth } from '../../../hooks/user.authenticate';
 
 const parkInfosSchema = Yup.object().shape({
   name: Yup.string(),
@@ -31,6 +32,7 @@ const pricesSchema = Yup.object().shape({
 });
 
 const MyProfilePage: React.FC = () => {
+  const { updateProfile, token, signOut } = useAuth();
   const {
     control,
     handleSubmit,
@@ -39,6 +41,23 @@ const MyProfilePage: React.FC = () => {
   } = useForm({
     resolver: yupResolver(parkInfosSchema),
   });
+
+  const handleUpdateMyProfile = async (form: FieldValues) => {
+    try {
+      const { name, password, confirmPassword } = form;
+
+      if (password !== confirmPassword) {
+        console.log('Password diferentes !');
+      }
+
+      await updateProfile(name, password, token);
+    } catch (err) {
+      console.error(err);
+      console.log('Erro ao atualizar usuário !');
+    } finally {
+      reset();
+    }
+  };
 
   return (
     <>
@@ -84,6 +103,7 @@ const MyProfilePage: React.FC = () => {
           <PrimaryButton
             style={{ marginTop: 10, marginBottom: 10 }}
             title="atualizar perfil"
+            onPressed={handleSubmit(handleUpdateMyProfile)}
           />
 
           <Divider />
@@ -99,22 +119,22 @@ const MyProfilePage: React.FC = () => {
             style={{ backgroundColor: 'white' }}
             iconName="user"
             control={control}
-            name="name"
+            name="first_hour"
             maxLength={30}
             error={errors.name && errors.name.message}
             isWhite
-            placeholder="Entre com sua nova senha"
+            placeholder="Primeira hora"
           />
 
           <Input
             style={{ backgroundColor: 'white' }}
             iconName="user"
             control={control}
-            name="name"
+            name="second_hour"
             maxLength={30}
             error={errors.name && errors.name.message}
             isWhite
-            placeholder="Confirmar senha"
+            placeholder="Demais horas"
           />
 
           <PrimaryButton
@@ -128,13 +148,7 @@ const MyProfilePage: React.FC = () => {
 
       <LogoutContent>
         <Divider />
-        <PrimaryButton
-          title="sair"
-          isPrimary
-          onPressed={function (): void {
-            throw new Error('Function not implemented.');
-          }}
-        />
+        <PrimaryButton title="sair" isPrimary onPressed={signOut} />
       </LogoutContent>
     </>
   );

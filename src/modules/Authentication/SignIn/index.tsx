@@ -103,6 +103,7 @@ const SignIn: React.FC = () => {
           control={control}
           name="email"
           error={errors.email && errors.email.message}
+          autoCapitalize="none"
         />
 
         <PasswordInput

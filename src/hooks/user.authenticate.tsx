@@ -17,7 +17,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 interface IAuthContext {
   user: IUserAuthRequest;
   signIn: (credentials: ICredentials) => Promise<void>;
+  signOut: () => Promise<void>;
   token: string;
+  updateProfile: (
+    name?: string,
+    password?: string,
+    token?: string,
+  ) => Promise<void>;
 }
 
 interface IAuthProvider {
@@ -70,6 +76,28 @@ const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
     [],
   );
 
+  const signOut = async () => {
+    setAuthResposne({} as IAunthenticateResponse);
+
+    await AsyncStorage.removeItem(userStorageKey);
+  };
+
+  const updateProfile = async (
+    name: string,
+    password: string,
+    token: string,
+  ) => {
+    const jwt = { Authorization: `Bearer ${token}` };
+
+    const response = await api.patch(
+      'users/update-profile',
+      { name, password },
+      { headers: jwt },
+    );
+
+    return response.data;
+  };
+
   useEffect(() => {
     const loadUserStoraged = async () => {
       const userStoraged = await AsyncStorage.getItem(userStorageKey);
@@ -85,7 +113,13 @@ const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user: authResponse.user, signIn, token: authResponse.token }}
+      value={{
+        user: authResponse.user,
+        signIn,
+        token: authResponse.token,
+        updateProfile,
+        signOut,
+      }}
     >
       {children}
     </AuthContext.Provider>
