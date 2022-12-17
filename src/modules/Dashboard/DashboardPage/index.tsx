@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
-import { VictoryBar, VictoryChart } from 'victory-native';
+import { VictoryAxis, VictoryBar, VictoryChart } from 'victory-native';
 import Header from '../../../components/Header';
 import { usePark } from '../../../hooks/park';
 import { useAuth } from '../../../hooks/user.authenticate';
 import { Container } from './styles';
 
 const DashboardPage: React.FC = () => {
-  const { token } = useAuth();
+  const theme = useTheme();
+  const { closedParks } = usePark();
 
   const [january, setJanuary] = useState(0);
   const [febuary, setFebuary] = useState(0);
@@ -21,8 +22,6 @@ const DashboardPage: React.FC = () => {
   const [october, setOctober] = useState(0);
   const [november, setNovember] = useState(0);
   const [dezember, setDezember] = useState(0);
-  const theme = useTheme();
-  const { closedParks } = usePark();
 
   const data = [
     { x: 'Jan', y: january, label: `R$${january}` },
@@ -93,17 +92,22 @@ const DashboardPage: React.FC = () => {
       <Header />
       <Container>
         <VictoryChart
-          height={420}
-          width={420}
+          height={400}
+          width={415}
           domainPadding={{ x: [21, 14], y: [10, 40] }}
         >
+          <VictoryAxis />
+
           <VictoryBar
             style={{
               data: {
                 fill: theme.colors.SUCCESS_GREEN,
                 width: 18,
               },
-              labels: {},
+              labels: {
+                fontSize: 13,
+                padding: 5,
+              },
             }}
             data={data}
             events={[
