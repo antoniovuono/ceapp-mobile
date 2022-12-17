@@ -22,17 +22,17 @@ const DashboardPage: React.FC = () => {
   const { closedParks } = usePark();
 
   const data = [
-    { x: 'Jan', y: january },
-    { x: 'Fev', y: febuary },
-    { x: 'Mar', y: march },
-    { x: 'Abr', y: april },
-    { x: 'Mai', y: may },
-    { x: 'Jun', y: june },
-    { x: 'Jul', y: july },
-    { x: 'Agos', y: august },
-    { x: 'Set', y: setember },
-    { x: 'Out', y: october },
-    { x: 'Nov', y: november },
+    { x: 'Jan', y: january, label: `R$${january}` },
+    { x: 'Fev', y: febuary, label: `R$${febuary}` },
+    { x: 'Mar', y: march, label: `R$${march}` },
+    { x: 'Abr', y: april, label: `R$${april}` },
+    { x: 'Mai', y: may, label: `R$${may}` },
+    { x: 'Jun', y: june, label: `R$${june}` },
+    { x: 'Jul', y: july, label: `R$${july}` },
+    { x: 'Agos', y: august, label: `R$${august}` },
+    { x: 'Set', y: setember, label: `R$${setember}` },
+    { x: 'Out', y: october, label: `R$${october}` },
+    { x: 'Nov', y: november, label: `R$${november}` },
     { x: 'Dez', y: dezember, label: `R$${dezember}` },
   ];
 
@@ -67,9 +67,9 @@ const DashboardPage: React.FC = () => {
       <Header />
       <Container>
         <VictoryChart
-          height={400}
-          width={400}
-          domainPadding={{ x: 10, y: [10, 40] }}
+          height={420}
+          width={420}
+          domainPadding={{ x: [21, 14], y: [10, 40] }}
         >
           <VictoryBar
             style={{
