@@ -28,10 +28,10 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const schema = Yup.object().shape({
+  car_id: Yup.string().required('Placa é obrigatória'),
   car_brand: Yup.string().required('Marca é obrigatória'),
   car_model: Yup.string().required('Modelo é obrigatório'),
   car_color: Yup.string().required('Cor é obrigatória'),
-  car_id: Yup.string().required('Placa é obrigatória'),
 });
 
 const HomePage: React.FC = () => {
@@ -64,7 +64,7 @@ const HomePage: React.FC = () => {
 
     setAddParkLoading(true);
     try {
-      await createParks(car_brand, car_color, car_id, car_model, token);
+      await createParks(car_id, car_brand, car_model, car_color, token);
       reset();
       setIsParkCadasterVisible(false);
     } catch (err) {

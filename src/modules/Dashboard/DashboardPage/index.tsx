@@ -3,9 +3,12 @@ import { useTheme } from 'styled-components';
 import { VictoryBar, VictoryChart } from 'victory-native';
 import Header from '../../../components/Header';
 import { usePark } from '../../../hooks/park';
+import { useAuth } from '../../../hooks/user.authenticate';
 import { Container } from './styles';
 
 const DashboardPage: React.FC = () => {
+  const { token } = useAuth();
+
   const [january, setJanuary] = useState(0);
   const [febuary, setFebuary] = useState(0);
   const [march, setMarch] = useState(0);
@@ -36,6 +39,28 @@ const DashboardPage: React.FC = () => {
     { x: 'Dez', y: dezember, label: `R$${dezember}` },
   ];
 
+  const januaryTotalAmount = () => {
+    const dezemberParks = closedParks.filter(element => {
+      const formatted = Intl.DateTimeFormat('pt-BR', {
+        month: 'long',
+        timeZone: 'UTC',
+      }).format(new Date(element.left_date));
+
+      return formatted === 'janeiro';
+    });
+
+    const amountList = dezemberParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setJanuary(sum);
+  };
+
   const dezembeTotalAmount = () => {
     const dezemberParks = closedParks.filter(element => {
       const formatted = Intl.DateTimeFormat('pt-BR', {
@@ -59,6 +84,7 @@ const DashboardPage: React.FC = () => {
   };
 
   useEffect(() => {
+    januaryTotalAmount();
     dezembeTotalAmount();
   }, [closedParks]);
 
