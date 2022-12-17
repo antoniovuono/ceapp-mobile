@@ -91,17 +91,7 @@ const HomePage: React.FC = () => {
   };
 
   useEffect(() => {
-    function bootstrap() {
-      try {
-        setLoadingParkList(true);
-        getParks(token);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoadingParkList(false);
-      }
-    }
-    bootstrap();
+    getParks(token);
   }, [openParks]);
 
   return (

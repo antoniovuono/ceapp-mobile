@@ -12,7 +12,7 @@ import { Container, ParksContainer, ParksList } from './styles';
 
 const HistoricPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const { getParks, closedParks, deletePark } = usePark();
+  const { closedParks, deletePark, getParks } = usePark();
   const { token } = useAuth();
   const theme = useTheme();
 
@@ -25,18 +25,7 @@ const HistoricPage: React.FC = () => {
   };
 
   useEffect(() => {
-    function bootstrap() {
-      setLoading(true);
-      try {
-        getParks(token);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    bootstrap();
+    getParks(token);
   }, []);
 
   const formattedDate = (departure_date: string) => {

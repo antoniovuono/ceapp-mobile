@@ -17,7 +17,6 @@ interface IAuthContext {
     car_color: string,
     token: string,
   ) => Promise<any>;
-  searchOpenPark: (license_plate: string, token: string) => Promise<void>;
   deletePark: (id: string, token: string) => Promise<void>;
   exitCar: (park_id: string, token: string) => Promise<void>;
   openParks: IParks[];
@@ -65,41 +64,29 @@ const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
   );
 
   const getParks = useCallback(async (token: string) => {
-    const response = await api.get('/park/park-list', {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    const openParksFilter = response.data.filter(
-      (element: { left_date: null }) => {
-        return element.left_date === null;
-      },
-    );
-
-    const closedParksFilter = response.data.filter(
-      (element: { left_date: null }) => {
-        return element.left_date !== null;
-      },
-    );
-
-    setOpenParks(openParksFilter);
-    setClosedParks(closedParksFilter);
-  }, []);
-
-  const searchOpenPark = useCallback(
-    async (license_plate: string, token: string) => {
-      const jwt = {
-        Authorization: `Bearer ${token}`,
-      };
-
-      const response = await api.get('park/list-by-plate', {
-        params: { license_plate },
-        headers: jwt,
+    try {
+      const response = await api.get('/park/park-list', {
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      setOpenParks(response.data);
-    },
-    [],
-  );
+      const openParksFilter = response.data.filter(
+        (element: { left_date: null }) => {
+          return element.left_date === null;
+        },
+      );
+
+      const closedParksFilter = response.data.filter(
+        (element: { left_date: null }) => {
+          return element.left_date !== null;
+        },
+      );
+
+      setClosedParks(closedParksFilter);
+      setOpenParks(openParksFilter);
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
 
   const deletePark = useCallback(async (park_id: string, token: string) => {
     const jwt = {
@@ -131,7 +118,6 @@ const ParkProvider: React.FC<IAuthProvider> = ({ children }) => {
         getParks,
         createParks,
         openParks,
-        searchOpenPark,
         deletePark,
         exitCar,
         closedParks,
