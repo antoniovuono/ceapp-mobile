@@ -1,8 +1,36 @@
-import styled from 'styled-components/native';
+import { ScrollView } from 'react-native';
+import styled, { css } from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled(ScrollView).attrs({
+  justifyContent: 'center',
+  alignItems: 'center',
+  showsHorizontalScrollIndicator: false,
+  showsVerticalScrollIndicator: false,
+})`
   flex: 1;
-  justify-content: center;
-  align-items: center;
   padding: 20px;
+`;
+
+export const YearController = styled.View`
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.SECONDARY_TITLE_WHITE};
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 20px;
+`;
+
+export const ChevronLeftButton = styled.TouchableOpacity``;
+
+export const ChevronRightButton = styled.TouchableOpacity``;
+
+export const YearLabel = styled.Text`
+  font-size: 20px;
+  ${({ theme }) =>
+    theme &&
+    css`
+      font-family: ${theme.fonts.BOLD};
+      color: ${theme.colors.PRIMARY_TITLE};
+    `}
 `;

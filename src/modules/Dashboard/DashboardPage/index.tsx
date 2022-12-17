@@ -3,13 +3,25 @@ import { useTheme } from 'styled-components';
 import { VictoryAxis, VictoryBar, VictoryChart } from 'victory-native';
 import Header from '../../../components/Header';
 import { usePark } from '../../../hooks/park';
-import { useAuth } from '../../../hooks/user.authenticate';
-import { Container } from './styles';
+import {
+  ChevronLeftButton,
+  ChevronRightButton,
+  Container,
+  YearController,
+  YearLabel,
+} from './styles';
+import { Entypo } from '@expo/vector-icons';
+import {
+  addOneYear,
+  getCurrentYear,
+  subtractOneYear,
+} from '../../../utils/DateFormats';
 
 const DashboardPage: React.FC = () => {
   const theme = useTheme();
   const { closedParks } = usePark();
 
+  const [currentYear, setCurrentYear] = useState('112');
   const [january, setJanuary] = useState(0);
   const [febuary, setFebuary] = useState(0);
   const [march, setMarch] = useState(0);
@@ -60,7 +72,7 @@ const DashboardPage: React.FC = () => {
     setJanuary(sum);
   };
 
-  const dezembeTotalAmount = () => {
+  const dezemberTotalAmount = () => {
     const dezemberParks = closedParks.filter(element => {
       const formatted = Intl.DateTimeFormat('pt-BR', {
         month: 'long',
@@ -82,19 +94,59 @@ const DashboardPage: React.FC = () => {
     setDezember(sum);
   };
 
+  const handleGoTPreviousYear = () => {
+    const response = subtractOneYear(Number(currentYear));
+
+    setCurrentYear(String(response));
+  };
+
+  const handleGoToNextYear = () => {
+    const response = addOneYear(Number(currentYear));
+
+    setCurrentYear(String(response));
+  };
+
+  useEffect(() => {
+    const getYear = () => {
+      const currentYear = getCurrentYear(new Date());
+
+      setCurrentYear(currentYear);
+    };
+    getYear();
+  }, []);
+
   useEffect(() => {
     januaryTotalAmount();
-    dezembeTotalAmount();
+    dezemberTotalAmount();
   }, [closedParks]);
 
   return (
     <>
       <Header />
+
+      <YearController>
+        <ChevronLeftButton
+          hitSlop={{ top: 30, bottom: 30, right: 30, left: 30 }}
+          onPress={handleGoTPreviousYear}
+        >
+          <Entypo name="chevron-left" size={24} color="black" />
+        </ChevronLeftButton>
+
+        <YearLabel> {currentYear} </YearLabel>
+
+        <ChevronRightButton
+          hitSlop={{ top: 30, bottom: 30, right: 30, left: 30 }}
+          onPress={handleGoToNextYear}
+        >
+          <Entypo name="chevron-right" size={24} color="black" />
+        </ChevronRightButton>
+      </YearController>
+
       <Container>
         <VictoryChart
           height={400}
           width={415}
-          domainPadding={{ x: [21, 14], y: [10, 40] }}
+          domainPadding={{ x: [13, 8], y: [10, 40] }}
         >
           <VictoryAxis />
 

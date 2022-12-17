@@ -17,4 +17,34 @@ const getCurrentDate = () => {
   return dayjs().toDate();
 };
 
-export { dateHourFormat, dateStandardFormat, dayOfWeekFormat, getCurrentDate };
+const getCurrentYear = (date: Date) => {
+  const currentYear = Intl.DateTimeFormat('pt-br', {
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
+
+  return currentYear;
+};
+
+const addOneYear = (year: number) => {
+  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+  year += 1;
+
+  return year;
+};
+
+const subtractOneYear = (year: number) => {
+  year -= 1;
+
+  return year;
+};
+
+export {
+  dateHourFormat,
+  dateStandardFormat,
+  dayOfWeekFormat,
+  getCurrentDate,
+  getCurrentYear,
+  addOneYear,
+  subtractOneYear,
+};
