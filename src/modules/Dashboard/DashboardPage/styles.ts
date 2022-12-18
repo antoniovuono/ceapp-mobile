@@ -21,10 +21,6 @@ export const YearController = styled.View`
   padding: 20px;
 `;
 
-export const ChevronLeftButton = styled.TouchableOpacity``;
-
-export const ChevronRightButton = styled.TouchableOpacity``;
-
 export const YearLabel = styled.Text`
   font-size: 20px;
   ${({ theme }) =>

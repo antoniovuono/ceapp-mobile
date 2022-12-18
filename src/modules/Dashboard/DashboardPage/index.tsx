@@ -3,13 +3,7 @@ import { useTheme } from 'styled-components';
 import { VictoryAxis, VictoryBar, VictoryChart } from 'victory-native';
 import Header from '../../../components/Header';
 import { usePark } from '../../../hooks/park';
-import {
-  ChevronLeftButton,
-  ChevronRightButton,
-  Container,
-  YearController,
-  YearLabel,
-} from './styles';
+import { Container, YearController, YearLabel } from './styles';
 import { Entypo } from '@expo/vector-icons';
 import {
   addOneYear,
@@ -17,6 +11,7 @@ import {
   getMonthAndYear,
   subtractOneYear,
 } from '../../../utils/DateFormats';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const DashboardPage: React.FC = () => {
   const theme = useTheme();
@@ -320,21 +315,21 @@ const DashboardPage: React.FC = () => {
       <Header />
 
       <YearController>
-        <ChevronLeftButton
+        <TouchableOpacity
           hitSlop={{ top: 30, bottom: 30, right: 30, left: 30 }}
           onPress={handleGoTPreviousYear}
         >
           <Entypo name="chevron-left" size={24} color="black" />
-        </ChevronLeftButton>
+        </TouchableOpacity>
 
         <YearLabel> {currentYear} </YearLabel>
 
-        <ChevronRightButton
+        <TouchableOpacity
           hitSlop={{ top: 30, bottom: 30, right: 30, left: 30 }}
           onPress={handleGoToNextYear}
         >
           <Entypo name="chevron-right" size={24} color="black" />
-        </ChevronRightButton>
+        </TouchableOpacity>
       </YearController>
 
       <Container>
