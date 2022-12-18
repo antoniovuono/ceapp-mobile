@@ -83,10 +83,11 @@ const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
   };
 
   const updateProfile = async (
-    name: string,
-    password: string,
-    token: string,
+    name?: string,
+    password?: string,
+    token?: string,
   ) => {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const jwt = { Authorization: `Bearer ${token}` };
 
     const response = await api.patch(

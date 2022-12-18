@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import Header from '../../../components/Header';
 import Input from '../../../components/Input';
@@ -16,6 +16,7 @@ import {
 } from './styles';
 import PasswordInput from '../../../components/PasswordInput';
 import { useAuth } from '../../../hooks/user.authenticate';
+import Alerts from '../../../components/Alerts';
 
 const parkInfosSchema = Yup.object().shape({
   name: Yup.string(),
@@ -32,6 +33,9 @@ const pricesSchema = Yup.object().shape({
 });
 
 const MyProfilePage: React.FC = () => {
+  const [title, setModalTitle] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
+  const [modalType, setModalType] = useState('success');
   const { updateProfile, token, signOut } = useAuth();
   const {
     control,
@@ -49,18 +53,32 @@ const MyProfilePage: React.FC = () => {
       if (password !== confirmPassword) {
         console.log('Password diferentes !');
       }
-
       await updateProfile(name, password, token);
+      setIsVisible(true);
+      setModalType('success');
+      setModalTitle('Perfil atualizado com sucesso!');
     } catch (err) {
-      console.error(err);
-      console.log('Erro ao atualizar usuário !');
+      setIsVisible(true);
+      setModalType('error');
+      setModalTitle('Não foi possivel atualizar o seu perfil. ');
     } finally {
       reset();
     }
   };
 
+  const handleCloseModal = () => {
+    setIsVisible(false);
+  };
+
   return (
     <>
+      <Alerts
+        title={title}
+        type={modalType}
+        isVisible={isVisible}
+        closeModalPressed={handleCloseModal}
+      />
+
       <Header />
       <Container>
         <Title>Atualizar perfil</Title>

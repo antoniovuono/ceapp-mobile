@@ -15,7 +15,9 @@ import {
 } from './styles';
 import {
   addOneYear,
+  getCurrentDate,
   getCurrentYear,
+  getMonth,
   getMonthAndYear,
   subtractOneYear,
 } from '../../../utils/DateFormats';
@@ -26,6 +28,7 @@ const DashboardPage: React.FC = () => {
   const { closedParks } = usePark();
 
   const [currentYear, setCurrentYear] = useState('');
+  const [mounthAmount, setMounthAmount] = useState('');
   const [currentMonth, setCurrentMonth] = useState('');
   const [totalYearAmount, setTotalYearAmount] = useState(0);
   const [january, setJanuary] = useState(0);
@@ -305,6 +308,29 @@ const DashboardPage: React.FC = () => {
     setCurrentYear(String(response));
   };
 
+  const selectedMonthController = () => {
+    const currentDate = getCurrentDate();
+    const convertedMonth = getMonth(currentDate);
+
+    const parks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `${convertedMonth} de ${currentYear}`;
+    });
+
+    const amountList = parks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setCurrentMonth(convertedMonth);
+    setMounthAmount(sum);
+  };
+
   useEffect(() => {
     const getYear = () => {
       const currentYear = getCurrentYear(new Date());
@@ -328,6 +354,7 @@ const DashboardPage: React.FC = () => {
     novemberTotalAmount();
     dezemberTotalAmount();
     yearTotalAmount();
+    selectedMonthController();
   }, [closedParks]);
 
   return (
@@ -369,8 +396,8 @@ const DashboardPage: React.FC = () => {
             size={20}
             color={theme.colors.SUCCESS_GREEN}
           />
-          <PrimaryLabel>Dezembro:</PrimaryLabel>
-          <Description>R$100</Description>
+          <PrimaryLabel>{currentMonth}:</PrimaryLabel>
+          <Description>R${mounthAmount}</Description>
         </LabelContent>
       </ChartDetailsContent>
 
@@ -401,12 +428,9 @@ const DashboardPage: React.FC = () => {
                     return [
                       {
                         target: 'data',
-                        mutation: () => ({
-                          style: {
-                            fill: theme.colors.SECONDARY_WARNING_YELLOW,
-                            width: 18,
-                          },
-                        }),
+                        mutation: data => {
+                          console.table('item selecionado:', data);
+                        },
                       },
                     ];
                   },

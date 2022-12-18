@@ -49,6 +49,15 @@ const getMonthAndYear = (date: any) => {
   return result;
 };
 
+const getMonth = (date: any) => {
+  const result = Intl.DateTimeFormat('pt-BR', {
+    month: 'long',
+    timeZone: 'UTC',
+  }).format(new Date(date));
+
+  return result;
+};
+
 export {
   dateHourFormat,
   dateStandardFormat,
@@ -58,4 +67,5 @@ export {
   addOneYear,
   subtractOneYear,
   getMonthAndYear,
+  getMonth,
 };

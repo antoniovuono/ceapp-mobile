@@ -4,6 +4,8 @@ import styled, { css } from 'styled-components/native';
 export const Container = styled(ScrollView).attrs({
   showsHorizontalScrollIndicator: false,
   showsVerticalScrollIndicator: false,
+  justifyContent: 'center',
+  alignItems: 'center',
 })`
   flex: 1;
 `;
@@ -44,6 +46,7 @@ export const LabelContent = styled.View`
 export const PrimaryLabel = styled.Text`
   font-size: 18px;
   margin-left: 5px;
+  text-transform: ;
   ${({ theme }) =>
     theme &&
     css`
