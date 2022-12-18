@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
 import { VictoryAxis, VictoryBar, VictoryChart } from 'victory-native';
+import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import Header from '../../../components/Header';
 import { usePark } from '../../../hooks/park';
-import { Container, YearController, YearLabel } from './styles';
-import { Entypo } from '@expo/vector-icons';
+import {
+  ChartDetailsContent,
+  Container,
+  Description,
+  LabelContent,
+  PrimaryLabel,
+  YearController,
+  YearLabel,
+} from './styles';
 import {
   addOneYear,
   getCurrentYear,
@@ -332,9 +340,31 @@ const DashboardPage: React.FC = () => {
         </TouchableOpacity>
       </YearController>
 
+      <ChartDetailsContent>
+        <LabelContent>
+          <MaterialIcons
+            name="attach-money"
+            size={20}
+            color={theme.colors.SUCCESS_GREEN}
+          />
+          <PrimaryLabel>Total do ano:</PrimaryLabel>
+          <Description>R$100</Description>
+        </LabelContent>
+
+        <LabelContent>
+          <MaterialIcons
+            name="attach-money"
+            size={20}
+            color={theme.colors.SUCCESS_GREEN}
+          />
+          <PrimaryLabel>Dezembro:</PrimaryLabel>
+          <Description>R$100</Description>
+        </LabelContent>
+      </ChartDetailsContent>
+
       <Container>
         <VictoryChart
-          height={400}
+          height={420}
           width={415}
           domainPadding={{ x: [13, 8], y: [10, 40] }}
         >

@@ -2,13 +2,10 @@ import { ScrollView } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
 export const Container = styled(ScrollView).attrs({
-  justifyContent: 'center',
-  alignItems: 'center',
   showsHorizontalScrollIndicator: false,
   showsVerticalScrollIndicator: false,
 })`
   flex: 1;
-  padding: 20px;
 `;
 
 export const YearController = styled.View`
@@ -28,5 +25,40 @@ export const YearLabel = styled.Text`
     css`
       font-family: ${theme.fonts.BOLD};
       color: ${theme.colors.PRIMARY_TITLE};
+    `}
+`;
+
+export const ChartDetailsContent = styled.View`
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 30px 20px;
+`;
+
+export const LabelContent = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+export const PrimaryLabel = styled.Text`
+  font-size: 18px;
+  margin-left: 5px;
+  ${({ theme }) =>
+    theme &&
+    css`
+      font-family: ${theme.fonts.BOLD};
+      color: : ${theme.colors.PRIMARY_TITLE};
+    `}
+`;
+
+export const Description = styled.Text`
+  font-size: 18px;
+  margin-left: 5px;
+  ${({ theme }) =>
+    theme &&
+    css`
+      font-family: ${theme.fonts.REGULAR};
+      color: : ${theme.colors.PRIMARY_TITLE};
     `}
 `;
