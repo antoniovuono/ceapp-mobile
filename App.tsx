@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <StatusBar style="dark" translucent backgroundColor="transparent" />
+      <StatusBar style="light" translucent backgroundColor="transparent" />
       <ThemeProvider theme={theme}>
         <AppProvider>
           <Routes />
