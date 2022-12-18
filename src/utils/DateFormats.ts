@@ -39,6 +39,16 @@ const subtractOneYear = (year: number) => {
   return year;
 };
 
+const getMonthAndYear = (date: any) => {
+  const result = Intl.DateTimeFormat('pt-BR', {
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(date));
+
+  return result;
+};
+
 export {
   dateHourFormat,
   dateStandardFormat,
@@ -47,4 +57,5 @@ export {
   getCurrentYear,
   addOneYear,
   subtractOneYear,
+  getMonthAndYear,
 };

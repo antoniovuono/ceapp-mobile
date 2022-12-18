@@ -14,6 +14,7 @@ import { Entypo } from '@expo/vector-icons';
 import {
   addOneYear,
   getCurrentYear,
+  getMonthAndYear,
   subtractOneYear,
 } from '../../../utils/DateFormats';
 
@@ -21,7 +22,7 @@ const DashboardPage: React.FC = () => {
   const theme = useTheme();
   const { closedParks } = usePark();
 
-  const [currentYear, setCurrentYear] = useState('112');
+  const [currentYear, setCurrentYear] = useState('');
   const [january, setJanuary] = useState(0);
   const [febuary, setFebuary] = useState(0);
   const [march, setMarch] = useState(0);
@@ -51,16 +52,13 @@ const DashboardPage: React.FC = () => {
   ];
 
   const januaryTotalAmount = () => {
-    const dezemberParks = closedParks.filter(element => {
-      const formatted = Intl.DateTimeFormat('pt-BR', {
-        month: 'long',
-        timeZone: 'UTC',
-      }).format(new Date(element.left_date));
+    const januaryParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
 
-      return formatted === 'janeiro';
+      return result === `janeiro de ${currentYear}`;
     });
 
-    const amountList = dezemberParks.map(element => {
+    const amountList = januaryParks.map(element => {
       return Number(element.total_amount);
     });
 
@@ -74,12 +72,9 @@ const DashboardPage: React.FC = () => {
 
   const dezemberTotalAmount = () => {
     const dezemberParks = closedParks.filter(element => {
-      const formatted = Intl.DateTimeFormat('pt-BR', {
-        month: 'long',
-        timeZone: 'UTC',
-      }).format(new Date(element.left_date));
+      const result = getMonthAndYear(element.left_date);
 
-      return formatted === 'dezembro';
+      return result === `dezembro de ${currentYear}`;
     });
 
     const amountList = dezemberParks.map(element => {
