@@ -26,6 +26,8 @@ const DashboardPage: React.FC = () => {
   const { closedParks } = usePark();
 
   const [currentYear, setCurrentYear] = useState('');
+  const [currentMonth, setCurrentMonth] = useState('');
+  const [totalYearAmount, setTotalYearAmount] = useState(0);
   const [january, setJanuary] = useState(0);
   const [febuary, setFebuary] = useState(0);
   const [march, setMarch] = useState(0);
@@ -282,6 +284,15 @@ const DashboardPage: React.FC = () => {
     setDezember(sum);
   };
 
+  const yearTotalAmount = () => {
+    let sumOfYear = 0;
+    data.forEach(element => {
+      sumOfYear += element.y;
+    });
+
+    setTotalYearAmount(sumOfYear);
+  };
+
   const handleGoTPreviousYear = () => {
     const response = subtractOneYear(Number(currentYear));
 
@@ -316,6 +327,7 @@ const DashboardPage: React.FC = () => {
     octoberTotalAmount();
     novemberTotalAmount();
     dezemberTotalAmount();
+    yearTotalAmount();
   }, [closedParks]);
 
   return (
@@ -348,7 +360,7 @@ const DashboardPage: React.FC = () => {
             color={theme.colors.SUCCESS_GREEN}
           />
           <PrimaryLabel>Total do ano:</PrimaryLabel>
-          <Description>R$100</Description>
+          <Description>R${totalYearAmount}</Description>
         </LabelContent>
 
         <LabelContent>
