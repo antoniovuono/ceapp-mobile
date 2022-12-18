@@ -66,7 +66,7 @@ export const Price = styled.Text<{ greenPrice?: boolean }>`
   ${({ theme, greenPrice }) =>
     greenPrice &&
     css`
-      color: ${theme.colors.SECONDARY_SUCCESS_GREEN};
+      color: ${theme.colors.SUCCESS_GREEN};
       font-family: ${theme.fonts.BOLD};
       font-size: 12px;
     `}

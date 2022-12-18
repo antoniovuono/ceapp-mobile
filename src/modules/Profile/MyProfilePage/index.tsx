@@ -37,6 +37,7 @@ const MyProfilePage: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [modalType, setModalType] = useState('success');
   const { updateProfile, token, signOut } = useAuth();
+
   const {
     control,
     handleSubmit,
@@ -122,6 +123,7 @@ const MyProfilePage: React.FC = () => {
             style={{ marginTop: 10, marginBottom: 10 }}
             title="atualizar perfil"
             onPressed={handleSubmit(handleUpdateMyProfile)}
+            isPrimary={false}
           />
 
           <Divider />
@@ -158,6 +160,11 @@ const MyProfilePage: React.FC = () => {
           <PrimaryButton
             style={{ marginTop: 10, marginBottom: 10 }}
             title="atualizar perfil"
+            isPrimary={false}
+            disabled
+            onPressed={function (): void {
+              throw new Error('Function not implemented.');
+            }}
           />
 
           <Divider />
