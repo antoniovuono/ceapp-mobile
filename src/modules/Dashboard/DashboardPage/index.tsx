@@ -144,7 +144,6 @@ const DashboardPage: React.FC = () => {
           domainPadding={{ x: [13, 8], y: [10, 40] }}
         >
           <VictoryAxis />
-
           <VictoryBar
             style={{
               data: {
