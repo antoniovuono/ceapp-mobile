@@ -9,7 +9,7 @@ export const Container = styled.View`
 export const ParksContainer = styled.View`
   flex: 1;
   width: 100%;
-  padding: 5px 20px;
+  padding: 20px;
   justify-content: center;
 `;
 

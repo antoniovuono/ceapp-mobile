@@ -105,8 +105,6 @@ const HomePage: React.FC = () => {
         <WelcomeModalContent />
       </Modal>
 
-      <Search onChangeValue={setCarId} value={carId} />
-
       <ParksContainer>
         {loadingParkList ? (
           <ActivityIndicator

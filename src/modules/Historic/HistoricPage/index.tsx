@@ -37,7 +37,6 @@ const HistoricPage: React.FC = () => {
   return (
     <Container>
       <Header />
-      <Search />
 
       <ParksContainer>
         {loading ? (
