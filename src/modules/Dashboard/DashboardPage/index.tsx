@@ -29,7 +29,7 @@ const DashboardPage: React.FC = () => {
   const [april, setApril] = useState(0);
   const [may, setMay] = useState(0);
   const [june, setJune] = useState(0);
-  const [july, setJalu] = useState(0);
+  const [july, setJuly] = useState(0);
   const [august, setAugust] = useState(0);
   const [setember, setSetember] = useState(0);
   const [october, setOctober] = useState(0);
@@ -68,6 +68,196 @@ const DashboardPage: React.FC = () => {
     });
 
     setJanuary(sum);
+  };
+
+  const febuaryTotalAmount = () => {
+    const febuaryParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `fevereiro de ${currentYear}`;
+    });
+
+    const amountList = febuaryParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setFebuary(sum);
+  };
+
+  const marchTotalAmount = () => {
+    const marchParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `março de ${currentYear}`;
+    });
+
+    const amountList = marchParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setMarch(sum);
+  };
+
+  const aprilTotalAmount = () => {
+    const aprilParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `abril de ${currentYear}`;
+    });
+
+    const amountList = aprilParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setApril(sum);
+  };
+
+  const mayTotalAmount = () => {
+    const mayParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `maio de ${currentYear}`;
+    });
+
+    const amountList = mayParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setMay(sum);
+  };
+
+  const juneTotalAmount = () => {
+    const juneParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `junho de ${currentYear}`;
+    });
+
+    const amountList = juneParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setJune(sum);
+  };
+
+  const julyTotalAmount = () => {
+    const julyParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `julho de ${currentYear}`;
+    });
+
+    const amountList = julyParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setJuly(sum);
+  };
+
+  const augustTotalAmount = () => {
+    const augustParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `agosto de ${currentYear}`;
+    });
+
+    const amountList = augustParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setAugust(sum);
+  };
+
+  const setemberTotalAmount = () => {
+    const setemberParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `setembro de ${currentYear}`;
+    });
+
+    const amountList = setemberParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setSetember(sum);
+  };
+
+  const octoberTotalAmount = () => {
+    const octoberParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `outubro de ${currentYear}`;
+    });
+
+    const amountList = octoberParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setOctober(sum);
+  };
+
+  const novemberTotalAmount = () => {
+    const novemberParks = closedParks.filter(element => {
+      const result = getMonthAndYear(element.left_date);
+
+      return result === `novembro de ${currentYear}`;
+    });
+
+    const amountList = novemberParks.map(element => {
+      return Number(element.total_amount);
+    });
+
+    let sum = 0;
+    amountList.forEach(element => {
+      sum += element;
+    });
+
+    setNovember(sum);
   };
 
   const dezemberTotalAmount = () => {
@@ -112,6 +302,16 @@ const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     januaryTotalAmount();
+    febuaryTotalAmount();
+    marchTotalAmount();
+    aprilTotalAmount();
+    mayTotalAmount();
+    juneTotalAmount();
+    julyTotalAmount();
+    augustTotalAmount();
+    setemberTotalAmount();
+    octoberTotalAmount();
+    novemberTotalAmount();
     dezemberTotalAmount();
   }, [closedParks]);
 
