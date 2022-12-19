@@ -6,7 +6,8 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "jest"
   },
   "dependencies": {
     "@expo-google-fonts/fira-sans": "^0.2.2",
@@ -24,6 +25,8 @@
     "expo-font": "~11.0.1",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
+    "jest": "^26.6.3",
+    "jest-expo": "^47.0.1",
     "react": "18.1.0",
     "react-hook-form": "^7.39.5",
     "react-native": "0.70.5",
@@ -39,6 +42,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@testing-library/jest-native": "^5.3.3",
+    "@testing-library/react-native": "^11.5.0",
+    "@types/jest": "^29.2.4",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
     "@types/styled-components-react-native": "^5.2.0",

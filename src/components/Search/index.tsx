@@ -46,6 +46,7 @@ const Search: React.FC<ITextProps> = ({ value, onChangeValue, onPressed }) => {
         </IconContent>
 
         <InputSearch
+          testID="input-search"
           placeholder="Pesquisar por placa"
           placeholderTextColor={theme.colors.PRIMARY_GRAY}
           onFocus={handleInFocus}

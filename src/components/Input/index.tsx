@@ -8,7 +8,7 @@ import { useTheme } from 'styled-components';
 interface IInputProps extends TextInputProps {
   iconName: React.ComponentProps<typeof Feather>['name'];
   value?: string;
-  control: Control;
+  control?: Control;
   error: string | any;
   name: string;
   isWhite?: boolean;
@@ -60,6 +60,7 @@ const Input: React.FC<IInputProps> = ({
           }}
           render={({ field: { onChange, value } }) => (
             <InputText
+              testID="input-component"
               placeholderTextColor={theme.colors.DARK_GRAY}
               onFocus={handleInputFocused}
               onBlur={handleInputBlur}
