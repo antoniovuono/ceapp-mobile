@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
@@ -49,5 +48,16 @@ describe('Search Component', () => {
     const input = getByTestId('input-search');
 
     expect(input.props.maxLength).toEqual(27);
+  });
+
+  it('Should be able to render a correctly color and font from a placeholder text', () => {
+    const { getByTestId } = render(<Search />, {
+      wrapper: Providers,
+    });
+
+    const input = getByTestId('input-search');
+
+    expect(input.props.placeholderTextColor).toEqual(theme.colors.PRIMARY_GRAY);
+    expect(input.props.style[0].fontFamily).toEqual(theme.fonts.REGULAR);
   });
 });
