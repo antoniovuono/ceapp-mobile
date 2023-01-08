@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from '../../../components/Header';
 import Modal from 'react-native-modal';
 
@@ -35,6 +35,8 @@ const schema = Yup.object().shape({
 });
 
 const HomePage: React.FC = () => {
+  const isMounted = useRef(false);
+
   const [addParkLoading, setAddParkLoading] = useState(false);
   const [isParkCadasterVisible, setIsParkCadasterVisible] = useState(false);
   const [carId, setCarId] = useState('');
@@ -65,6 +67,8 @@ const HomePage: React.FC = () => {
     setAddParkLoading(true);
     try {
       await createParks(car_id, car_brand, car_model, car_color, token);
+      // Facade
+      getParks(token);
       reset();
       setIsParkCadasterVisible(false);
     } catch (err) {
@@ -85,14 +89,18 @@ const HomePage: React.FC = () => {
   const handleExitCart = (park_id: string) => {
     try {
       exitCar(park_id, token);
+      getParks(token);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
+    // eslint-disable-next-line no-useless-return
+    if (isMounted.current) return;
     getParks(token);
-  }, [openParks]);
+    isMounted.current = true;
+  }, [getParks, token]);
 
   return (
     <Container>

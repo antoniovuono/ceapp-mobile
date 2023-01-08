@@ -9,7 +9,7 @@ interface IInputProps extends TextInputProps {
   iconName: React.ComponentProps<typeof Feather>['name'];
   value?: string;
   control?: Control;
-  error: string | any;
+  error?: string | any;
   name: string;
   isWhite?: boolean;
 }

@@ -7,12 +7,12 @@ import {
   SearchButton,
   SearchContent,
 } from './styles';
-import { useTheme } from 'styled-components';
+import { useTheme } from 'styled-components/native';
 
 interface ITextProps {
   value?: string;
   onChangeValue?: any;
-  onPressed: () => void;
+  onPressed?: () => void;
 }
 
 const Search: React.FC<ITextProps> = ({ value, onChangeValue, onPressed }) => {
